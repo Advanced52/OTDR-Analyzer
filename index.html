@@ -1,0 +1,3608 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OTDR ANALYZER</title>
+  <meta name="description" content="Analizador de lecturas OTDR para archivos .trc, .sor y .msor. Visualiza trazas, navega eventos, compila tablas y exporta a Excel. Funciona 100% offline.">
+
+  <!-- Favicon (imagen del ojo tecnológico) -->
+  <link rel="icon" type="image/jpeg" href="data:image/jpeg;base64,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">
+  <link rel="apple-touch-icon" href="data:image/jpeg;base64,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">
+
+  <!-- Tipografía futurista (Orbitron + Rajdhani) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Vendor libraries (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+  <style>
+/* ============================================================================
+   OTDR Analyzer — Standalone Stylesheet
+   Tema oscuro con acentos cyan/dorado, estética de fibra óptica.
+   Autocontenido: sin dependencias externas excepto las fuentes del sistema.
+   ============================================================================ */
+
+:root {
+  /* Paleta */
+  --bg-deep: #0a0e1a;
+  --bg-panel: rgba(15, 23, 42, 0.72);
+  --bg-card: rgba(30, 41, 59, 0.55);
+  --bg-card-hover: rgba(30, 41, 59, 0.78);
+  --border-glass: rgba(56, 189, 248, 0.18);
+  --border-strong: rgba(56, 189, 248, 0.45);
+
+  --accent-cyan: #38BDF8;
+  --accent-cyan-bright: #7DD3FC;
+  --accent-gold: #FACC15;
+  --accent-gold-bright: #FDE047;
+  --accent-pink: #EC4899;
+  --accent-orange: #F97316;
+  --accent-green: #4ADE80;
+  --accent-red: #F87171;
+
+  --text-primary: #FFFFFF;
+  --text-secondary: #CBD5E1;
+  --text-muted: #94A3B8;
+  --text-dim: #64748B;
+
+  /* Sombras */
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.45);
+  --shadow-strong: 0 12px 48px rgba(0, 0, 0, 0.6);
+  --text-shadow-medium: 0 1px 3px rgba(0, 0, 0, 0.6);
+  --text-shadow-strong: 0 2px 6px rgba(0, 0, 0, 0.8);
+
+  /* Tipografía */
+  --font-sans: 'Inter', 'Segoe UI', 'Helvetica Neue', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Cascadia Code', 'Consolas', 'Menlo', monospace;
+}
+
+/* Reseteo */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.5;
+  overflow-x: hidden;
+  background-image:
+    radial-gradient(ellipse at 0% 0%, rgba(56, 189, 248, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 100% 100%, rgba(250, 204, 21, 0.05) 0%, transparent 50%),
+    linear-gradient(180deg, #0a0e1a 0%, #050810 100%);
+}
+
+/* Layout */
+.container { max-width: 1440px; margin: 0 auto; padding: 0 24px; width: 100%; }
+
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header */
+.app-header {
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.55) 100%);
+  border-bottom: 1px solid var(--border-glass);
+  backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+/* Header centrado con estilo futurista */
+.header-centered {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 24px 24px 20px;
+  gap: 14px;
+}
+
+.brand-block {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-direction: row;
+  text-align: center;
+}
+
+.header-centered .brand-block {
+  gap: 18px;
+}
+
+/* Logo OTDR (imagen del ojo tecnológico, a la izquierda del título) */
+.brand-logo {
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(74, 222, 128, 0.45);
+  box-shadow:
+    0 0 20px rgba(74, 222, 128, 0.30),
+    0 4px 12px rgba(0, 0, 0, 0.45);
+  object-fit: cover;
+  background: #050810;
+  flex-shrink: 0;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Título futurista con Orbitron */
+.brand-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+  text-shadow: 0 0 18px rgba(56, 189, 248, 0.55), 0 1px 3px rgba(0, 0, 0, 0.6);
+  line-height: 1.1;
+}
+
+.brand-title.futuristic {
+  font-family: 'Orbitron', var(--font-sans);
+  font-weight: 900;
+  font-size: 2.8rem;
+  letter-spacing: 0.14em;
+  background: linear-gradient(180deg, #FFFFFF 0%, #7DD3FC 60%, #38BDF8 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 14px rgba(56, 189, 248, 0.55)) drop-shadow(0 2px 3px rgba(0, 0, 0, 0.7));
+}
+
+.brand-title.futuristic .accent-cyan {
+  background: linear-gradient(180deg, #7DD3FC 0%, #38BDF8 60%, #0EA5E9 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 18px rgba(56, 189, 248, 0.7));
+}
+
+.brand-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.brand-subtitle.futuristic-sub {
+  font-family: 'Rajdhani', var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  text-shadow: 0 0 8px rgba(56, 189, 248, 0.25);
+}
+
+.header-status-pill {
+  display: inline-block;
+  padding: 6px 14px;
+  background: rgba(56, 189, 248, 0.15);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent-cyan-bright);
+  white-space: nowrap;
+}
+
+/* Drop zone image (eye icon) */
+.drop-zone-image {
+  width: 96px;
+  height: 96px;
+  border-radius: 14px;
+  border: 1.5px solid rgba(56, 189, 248, 0.45);
+  box-shadow:
+    0 0 28px rgba(56, 189, 248, 0.30),
+    0 4px 16px rgba(0, 0, 0, 0.45);
+  object-fit: cover;
+  background: #050810;
+}
+
+.drop-zone:hover .drop-zone-image,
+.drop-zone.drag-over .drop-zone-image {
+  box-shadow:
+    0 0 36px rgba(56, 189, 248, 0.55),
+    0 6px 20px rgba(0, 0, 0, 0.55);
+  transform: scale(1.05);
+}
+
+/* Main content */
+main.container { padding: 24px; flex: 1 0 auto; }
+
+.app-panel { display: none; }
+.app-panel.active { display: block; }
+
+/* Glass card */
+.glass-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-glass);
+  border-radius: 18px;
+  padding: 24px;
+  margin-bottom: 24px;
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-card);
+}
+
+.card-header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.card-title-group h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+  text-shadow: var(--text-shadow-medium);
+}
+
+.card-title-group p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  max-width: 900px;
+}
+
+/* Drop zone (full width, ya no hay upload-grid) */
+.drop-zone {
+  border: 2px dashed var(--border-strong);
+  border-radius: 14px;
+  padding: 32px 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: rgba(56, 189, 248, 0.04);
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+/* Spacer para separar navegación de botones en la barra */
+.nav-spacer { flex: 1; min-width: 20px; }
+
+.drop-zone:hover, .drop-zone.drag-over {
+  border-color: var(--accent-cyan);
+  background: rgba(56, 189, 248, 0.10);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(56, 189, 248, 0.25);
+}
+
+.drop-zone-icon { margin-bottom: 8px; }
+
+.drop-zone h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-shadow: var(--text-shadow-medium);
+}
+
+.drop-zone p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Upload actions box eliminado — los botones Demo y Limpiar
+   ahora están en la barra de navegación junto al selector de hilos */
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 18px;
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-sm { padding: 7px 12px; font-size: 0.85rem; }
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-cyan) 0%, #0EA5E9 100%);
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(56, 189, 248, 0.35);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(56, 189, 248, 0.5);
+}
+
+.btn-secondary {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+  border: 1px solid var(--border-glass);
+}
+
+.btn-secondary:hover {
+  background: rgba(51, 65, 85, 0.85);
+  border-color: var(--border-strong);
+}
+
+/* OTDR Viewer */
+.otdr-viewer {
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
+  border-radius: 14px;
+  padding: 18px;
+  margin-bottom: 20px;
+}
+
+.otdr-nav-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.otdr-event-nav-bar {
+  padding-top: 10px;
+  border-top: 1px dashed var(--border-glass);
+  margin-bottom: 14px;
+}
+
+.otdr-counter {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent-cyan-bright);
+  padding: 6px 14px;
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid var(--border-glass);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  flex: 1;
+  text-align: center;
+}
+
+.otdr-file-select {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+  border: 1px solid var(--border-glass);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  max-width: 280px;
+}
+
+.otdr-info-bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 10px 0;
+  margin-bottom: 14px;
+  border-top: 1px dashed var(--border-glass);
+  border-bottom: 1px dashed var(--border-glass);
+}
+
+.otdr-info-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  background: rgba(56, 189, 248, 0.10);
+  border: 1px solid var(--border-glass);
+  border-radius: 999px;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+.otdr-pill-error {
+  background: rgba(248, 113, 113, 0.15);
+  border-color: rgba(248, 113, 113, 0.5);
+  color: var(--accent-red);
+}
+
+.otdr-viewer-row {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 16px;
+  align-items: stretch;
+}
+
+@media (max-width: 1024px) {
+  .otdr-viewer-row { grid-template-columns: 1fr; }
+}
+
+.otdr-chart-box {
+  background: rgba(10, 14, 26, 0.85);
+  border: 1px solid var(--border-glass);
+  border-radius: 10px;
+  padding: 12px;
+  min-height: 480px;
+  height: 480px;
+  position: relative;
+}
+
+.otdr-event-info {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid var(--border-glass);
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 360px;
+}
+
+.otdr-ei-empty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.otdr-ei-empty small { color: var(--text-dim); margin-top: 6px; }
+
+.otdr-ei-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed var(--border-glass);
+  margin-bottom: 4px;
+}
+
+.otdr-ei-num { font-size: 0.9rem; font-weight: 600; color: var(--accent-cyan-bright); }
+.otdr-ei-type {
+  font-size: 0.8rem;
+  padding: 3px 10px;
+  background: rgba(250, 204, 21, 0.15);
+  border: 1px solid rgba(250, 204, 21, 0.4);
+  border-radius: 999px;
+  color: var(--accent-gold-bright);
+}
+.otdr-ei-end {
+  background: rgba(236, 72, 153, 0.15);
+  border-color: rgba(236, 72, 153, 0.4);
+  color: var(--accent-pink);
+}
+
+.otdr-ei-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+  font-size: 0.88rem;
+}
+
+.otdr-ei-row span { color: var(--text-muted); }
+.otdr-ei-row b { font-weight: 600; color: var(--text-primary); font-family: var(--font-mono); }
+
+.otdr-ei-total {
+  background: rgba(236, 72, 153, 0.10);
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(236, 72, 153, 0.3);
+  margin-top: 4px;
+}
+
+.otdr-ei-total span { color: var(--accent-pink); font-weight: 600; }
+.otdr-ei-total b { color: var(--accent-pink); font-size: 1rem; }
+
+.otdr-ei-gain { color: var(--accent-green); }
+
+/* Tables */
+.table-responsive {
+  overflow-x: auto;
+  overflow-y: auto;
+  border-radius: 10px;
+  border: 1px solid var(--border-glass);
+  background: rgba(10, 14, 26, 0.6);
+}
+
+.clients-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.clients-table thead {
+  position: sticky;
+  top: 0;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(8px);
+  z-index: 2;
+}
+
+.clients-table th {
+  padding: 10px 12px;
+  text-align: left;
+  font-weight: 700;
+  color: var(--accent-cyan-bright);
+  border-bottom: 2px solid var(--border-strong);
+  white-space: nowrap;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.clients-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.clients-table tbody tr {
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+
+.clients-table tbody tr:hover { background: rgba(56, 189, 248, 0.06); }
+
+.clients-table tbody tr.otdr-row-active {
+  background: rgba(56, 189, 248, 0.12);
+  border-left: 3px solid var(--accent-cyan);
+}
+
+.clients-table tbody tr.otdr-row-error td { color: var(--accent-red); }
+
+.otdr-hilo-cell {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.otdr-sub { font-size: 0.72rem; color: var(--text-dim); margin-top: 2px; font-family: var(--font-mono); }
+
+.otdr-dist-th { color: var(--accent-gold-bright); font-family: var(--font-mono); }
+.otdr-total-th { color: var(--accent-pink); }
+
+.otdr-cell-loss {
+  font-family: var(--font-mono);
+  text-align: right;
+  color: var(--text-primary);
+  cursor: pointer;
+  font-weight: 500;
+}
+.otdr-cell-loss:hover { color: var(--accent-cyan-bright); }
+
+.otdr-cell-gain { color: var(--accent-green); }
+
+.otdr-cell-llega {
+  background: rgba(236, 72, 153, 0.15);
+  color: var(--accent-pink);
+  font-weight: 700;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.otdr-cell-empty {
+  text-align: center;
+  color: var(--text-dim);
+}
+
+.otdr-cell-total {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--accent-pink);
+  text-align: right;
+  background: rgba(236, 72, 153, 0.08);
+}
+
+.otdr-cell-active {
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: -2px;
+  background: rgba(56, 189, 248, 0.18) !important;
+}
+
+.otdr-summary-detail {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  max-width: 480px;
+  white-space: normal;
+}
+
+/* OTDR Table actions */
+.otdr-table-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+/* Footer */
+.app-footer {
+  background: rgba(15, 23, 42, 0.85);
+  border-top: 1px solid var(--border-glass);
+  padding: 16px 0;
+  margin-top: 32px;
+  backdrop-filter: blur(8px);
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.footer-inner code {
+  font-family: var(--font-mono);
+  color: var(--accent-cyan-bright);
+  background: rgba(56, 189, 248, 0.10);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* Code styling in text */
+code {
+  font-family: var(--font-mono);
+  background: rgba(56, 189, 248, 0.10);
+  color: var(--accent-cyan-bright);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.88em;
+}
+
+/* Responsive */
+/* Event side panel (botones de navegación + info del evento, a la derecha del chart) */
+.otdr-event-side {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-height: 480px;
+}
+
+.event-nav-side {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid var(--border-glass);
+  border-bottom: none;
+  border-radius: 10px 10px 0 0;
+  flex-wrap: wrap;
+}
+
+.event-nav-btn {
+  flex: 0 0 auto;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  transition: all 0.15s ease;
+}
+
+.event-nav-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(56, 189, 248, 0.35);
+}
+
+.event-counter-pill {
+  flex: 1;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--accent-cyan-bright);
+  padding: 5px 12px;
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid var(--border-glass);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.otdr-event-side .otdr-event-info {
+  border-radius: 0 0 10px 10px;
+  min-height: calc(480px - 44px);
+  border-top: none;
+}
+
+/* Contador de visitas en el footer */
+.visitor-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: rgba(56, 189, 248, 0.10);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  font-family: 'Rajdhani', var(--font-sans);
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.visitor-counter:hover {
+  box-shadow: 0 0 18px rgba(56, 189, 248, 0.30);
+  border-color: var(--accent-cyan);
+}
+
+.visitor-eye {
+  font-size: 1rem;
+  filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.5));
+}
+
+.visitor-label {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.visitor-count {
+  font-family: 'Orbitron', var(--font-mono);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-cyan-bright);
+  text-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
+  min-width: 30px;
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .header-inner { flex-direction: column; align-items: stretch; }
+  .header-status { text-align: center; }
+  .container { padding: 0 14px; }
+  main.container { padding: 14px; }
+  .glass-card { padding: 16px; }
+  .otdr-chart-box { height: 280px; min-height: 280px; }
+  .otdr-event-info { min-height: auto; }
+  .otdr-event-side { min-height: auto; }
+  .otdr-event-side .otdr-event-info { min-height: auto; }
+}
+
+  </style>
+</head>
+<body>
+  <div class="app-wrapper">
+    <header class="app-header">
+      <div class="container header-inner header-centered">
+        <div class="brand-block">
+          <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAEAAQADASIAAhEBAxEB/8QAHAABAQACAwEBAAAAAAAAAAAAAAEFBgMEBwII/8QASBAAAQMDAgMFBAYIBAQFBQAAAQIDBAAFEQYhEjFBEyJRYXEHFDJCI1JigZGhFSQzY3KCscFDU5KiFnODsiU00eHwRHSTo8P/xAAaAQEAAgMBAAAAAAAAAAAAAAAABAUBAgMG/8QAMhEAAgECBAIJBAMBAAMAAAAAAAECAxEEEiExQfAFEyJRcZGhsdEyYYHBFELhIzNS0v/aAAwDAQACEQMRAD8A/H9KUoBTFKUApSlAKYpSgFKUoBSlKAUpSgFKUoBSlKAUpSgFKUoBSlKAUpQUApSlAKUpQClKUAFKClAKgq0oBSlKAUpSgJvVpSgFKdaUApUq0ApSoTQFpQUoBQUpQClKUApSlAKUpQClKUApSlAKUqb0BRSg5UoBSoatAKUpQClKlAWp1pirQClTFBtQFqZoalAXNDSlAM0zUpQH1mlSlAWmKmaooBSlKAUpUNAWlBTNAKUpQClKUAFKUoBSlKAUpUNAWlAahoBmmaVKAuaGpXNFiyZbyWYzDrziuSW0FRP3CspNuyMNpas4qVscfR1z4kie7Gt5VyQ85l0+jacq/KsqNFRYzYcmPyyk/M4lEVH4uq4j/pqRHCVZcCPLF0o8TR6V6MxYNHNMsuytQWGPxjJQqRJlODfGClpsAHbxrvItPs/UsBN9Sr/7fTklf5rXXRYKXGSOUsfBf1fkzyvBpg16wbNoHiAN8dQPF3TDyR+S667+nNGSFcMbVGnQroH40mKT95JH5Vt/AlwkjRdJQ4xfk/g8vqV6Q/7O0PI7SC7DkpPJUO5JWPwcSn+tYC56KuUTKgl1I/fMlI/1p4kfmK5TwVaOtjtTx1GeikavTpXZmQJkMcUiOtCPrjdJ/mG1dY1GaadmSk09UM1alM1gyM0zTNKAtTFM1c0BAKtM0oCVanWrQAUqDlVoBTNKmKAtKgpnegHlSlVtC3FhCElSlHAAGSabg+ayNlstyvDym4EZTgQMuOEhKGx4qUdgPWtr05ogJX2t5Spx5Ke0MJCwjs0/WfcOzSfL4vStvaZD9vD0f9HtW6MrBmSwWLYwR0bR8UhfmQonwqxoYBvtVNEVtfpBReWnqzVLRpG2R4xlznRPCTgudp2ENJ8O0PecPkgffWxW4Py0CLYLZJnMcle6NmFDH8S/2jn3kV9syIT6jPtttXqJxvZV5v592t7Pk0zkZA6An+WupOu796d90duV51VITsmHa2zEgt+XdGSPuHrU6ChTVoLnnxIE5VKjvJ8+Hy0czzC4C1tXLUcC0A7GLa+FtZ8is98/gquFqzW5xBkx7O/IB395lsOuA+fE6ppH5Guos3K1tFtdw07pJB5tRUh6VjzKeJefVQrqx7dCvL36vG1hqyQeZQ0UIP8A3n+lZcr8Off0MqNle/PovVmTW/EiqCXL5FgBPysLitEf/jQ4fzrqu3bT6nCXtV3ZZ8UTnf7NCu43obUiBxM+zOJDR0Vc5pSR68a0/wBKqtNalZT3oWgYv2Vy4xP5rNYtPu9/8MZqX/t6r/TGC46YWSBqm+NnoffHD/Vuu1Ck2V4ONq15cUgp7gcDbwKsjmHAjbGetcqtN6mdGERNDSD4NyI2T+ChXUmaV1GhJMn2fQZCRzXDcVy/kWR+VatT7vf9GynSf9vWP7SMm1pj3k9rbNQabuCx/nRVxHD/ANRniT+Jr7RD1JaZTb8mzXF5hByssPJnsqAOMcSCHEj781pkyBa4y8yrLf7K4PmSe0SD/MEn867tpul5hvJcsGrmZRB7rMpRbX6YXt+Cq1jOz48+NmbyptrRp+K/aujMi4tTFO8ICV/M2lHbFP8AE2oB0D0B9aw91sFueY97dhLZbPOXayHm0n7bKiCPQKz5VmJOq231CLrewORVKxwS2WQ4npvwKO/q2tBrlQGm2jd4Mxx2MjCTPiKU8hAPR0Edq0PsuJcTtgE0nlqaPUQcqeq057+POhoEvTc9MZ2ZbltXWG1u49DJUWh+8bIC0feMedYQb7jevWFwYs9r9MOLVDkA/Q3i1bJScDZ1CDgc9ynx3SmsPqKMGyn/AIqtzD6Hj9DerfhHa56qIHCo9cKAJ+sNzUGrhMquueeWT6WKzPK+eeUaBUrYLvpeVGYXNtzybnBTupxoYcaB5do3zT6jIPjWv1ElFxdmS4yUldFpSmK1NhTFMVaAmKb1ah50AHKrQcqhoBTegFU0BKlK7lotsu6z24UJouOuH0CRzJJ6ADck8qzFOTsjEpKKuyWq3y7pObhQWVPPOHZI/Mk9AOpPKvT9Mafh2VppxpS35rxKUSGUcTrquqIyTyHi8dh08+9YLDBs1rLDAbcUtsOPuOkoS6n67h5oYB+FPxOHyxXbUlchwNqTMWqWgANtJCJk9A/KPHH5jx6XmGwapLNLf2KHFY11nljpH3Oihbhke7xI0SWuKsOqYLn/AIfEUD8chw/tl+OTjoM8q45SV3SQu5nsr26ycKuM8e72uJ9hlrYKA6DH8pruOR2no4L4gPRIitmgstWuGr7a+chz0znxPKtdvmtrTFfSqK2dQTmcdjImN8EOPjo1HG2P4vwrvVlCCvN2ONKM5u1NX55/0zES0SL4576iNL1OWhgzJy/c7XHx0TnGQPDKfSvi73LTUFj3e+avfuAA3temmAxGHkXSAD68KvWvPNV6u1FqiUp+9XR6QCoqSyO4035IbThKR5AVhmGXZDyWWW1uOLOEpSMknyFV88er2px8yfT6Pla9WVvD5+Ejela/tttPDpfRVlgEHuyJqDNf9cud0H0TXb/4g9pGoYi3rjqaZb7W0poPEve7tNocOEqDaMZT6A1irfCg6bSxJkMsXO8LCX40ckORlt8J421jn2o27v8AfFdWVJk3JTTs+S7IjtMBCCTn9TUcbDxbUeX/AKUdSa/8kte5aeZlUqb1pxVu96v8XO0uJp9p4InzrndpJXJjudmeFAdSMtKSpWSpJ5kYBrgVPsCWFKZ0w0QuPFWC5IWohQXhwjyWdsdOlfTcF1lKnXW8vM4W4B/mxlDix/E0ri867L1oDLT7ARs02+yn0RJbWn/a5S83slz4m2WC3bf5t7HGqdp1cvMjSjKWUzJbi0syVpPZpT3WwTnASd88z1rjjIsnYBUK5Xa1TERmcYXlLkhauWUkFKQjfqcjzrsy7Utan2UpwtZkITt8zksND8ga68mJ9It9loqUXHH2kgfEpS+xjp/2qV6Cjc1ul5fAUYNaN+fyZSVctdWZpTsW8i927t3I7b2zyHSgAqIB74ABG+1Ys6nstzPDerCw24di9GT/AFAIV+Z9K4YhmWt4rtk5cfDTkdLyFY+gSCH3T5KJKR47iu1JjWvU37Nhiz3UoCwjIbjJYS3sVE79qsgHzKvMUzylpF69z1X4NerhF3ktO9aP82O3GYZEVTlhvbiY2MuMvD3hgfxJxxIHmpGPOuq2py1S27o0l6ySOSLhbV9rFWD0UnJ2PUZ/lrUnETbZOGe3iSWjkEZQtP8AcVl7ffzxkyFriPq2MuMkd/8A5rXwuDzGD61zWIi3aSs+fL0Ozw7SvF3T5/PqblGd94Wm5Q8Wu6qOEyrWR7vLPQcB7vH+7Vgn5d8Jr6j3lopU1OTDgqfJSp1CCbdMV1S62RmO554xn4kjnWtCQ3GeQ84EW9T+Q3NhjtIkjxCkdPMcx1TWb4m7sEh1UaBd3sNsyeLjgXQdG3Sfgc8FH0Vw7KElTutOeeWyLKnZ6rn487dy4dfWEWDp+8REaefuMeR7ql12O4AC0tWSewVkhxvGDgkg9M86xba9O3puS7eXv0VMTHW4xIjMlTcpwDZKk/KSdiennyrOWn3Na16W1RGlRobRVwxnM+8Wx3OS4wrmpvI7yN/EAnesFq/TM20yPpFtyozxHYTW/wBnIyMgK+q5gHB5KwefOuFWL+pLTuO9GS0hJ69/fzzfc1M89qo5VFDCiDkEHByMGlVpZFpTNKAUNKUBKua+atAWpVzUoDlhxn5kpqLGbU686sIQhIyVE8gK9t0lphnTdo7N7slyn0hb7pTxpIzgDA3UgKGEoG7qh9VO/R9kmkEwLem/3Jr9bfSfdW1AnhQfmIG++Ry3IISN1jG4T3ENIckSH+AoCnFuKcCOEfCVcQ2Ty4SsZwB2bQOCav8AAYNU49bPd+h5vpHHOrPqqey3+7Ma80S6rj2KXt+1T23A94qSP28nwQO431rXdUamtliS/EcCpkp05ejB/iU6rxlPJ3V/ykEJHU5rXdZa9XIBg2IlhpKC0ZKU8CijqhpP+Gj/AHK5qJ5VoKiVHJOTXLFdIKLy0t+8kYTo5ySlV0XcZXUWobpfXkqnyMtN7MsNgIaaHglA2ArE0pVPOcpu8ndl1CEYK0VZFAJOAMk1vdvitaWtUZ8JU5fpyA7HLahxRm9ilxpaVftdiChQzjzO2H0JCYXLfustoSI9vR2imUSUtOrUdkFAUDxEKwSADsK7DsqReblLnzHBIdeWXJR7I7n960Nx/GjlUuhHq45+L2+SJXfWSyf1W/3+xIsdcl0uOcbyniXFKZHecKd+2a8HUfMjqK2C325anAsJZcWVhwBP7Ja1jGR+6fTlJ+qvA2rmtEJT5CscQWkOZLnFxhPJfGn4ino8nvJ5LSRmt4s1hXKGzfETkkFIGeL4shOwCuZCdiQFp6irDD4XNqyuxWMVPQwECygBtR4nGUhBBWN1pSkhJI8SyVoP2mqyKdPqLfZ4KlpBQpWOZDfAT9/YpP31v8uHYNKxmpGqZykPOEKahspC5DhJBGU8hk7+ZKiB3q6E3XLEE/qOjbdBa+VV4npbdUMYB4OIEf6asVSpw3KZ4urVd4K5qkmyLS6p5LffSsqTkfMFvrT/ALlIrETLIWk4bUEBGyHCP2YSgtpX/I2l1z1Wnxr0GFr4SlkyNHWee2eYtVwSp0eYRxEnl4V34cfTerELGmZK2pyPjtkxPC+nGNgPmxwp22J4QMbmsOnCWxlYurS1qKy8zxSdakDuIjJT8IDDhwkBAy20s9ENp+kdPVRA51r02IUkrKgvH6x2jw4ePP8A9Q94JPyI5nw339cv1icQtTPZEkYSQpPEDuVYI+YcWVcPzq3OEprTrvAKCccRWCXgriClE9XSpXdz++XhCeTYPOoGIwtti3wuMU0Yl6O3q63Ox5SlDUMVsvJfeV9JLbxkl5SlYQQkAISNzy8K8/WlSFlCwUqScEGtpkrXAfYlsuIaKHO0Ycwop4854m0nvPK/eKwPCvrXrCJzUbUraCyuYSmUh6Qlb63xutxSABwJUTsPXnUCtHrYZv7Lf7osaL6qeX+r2+z7jX7XcXYKygoTIiuEdvFcJ7N0Dx8D4KGCOhrLoQpiI7cdPPqfhEZmQHu+tgfbTjC2/Bwcts8JxnW67VquEu1z2p0F5TL7Z7qhyI6gjqCNiDsaiQqOJKnC+x6JFuMPXduZhOJ4L7Dbwy2t0JVJQnkG3Dv2oHIK+IAA5IyOfTcwzko03dn2kR3nOxamSEcLaVE7tSEn4NxnPQjOeo1KTGi3do3rTzfuc9khyVb2z8BBz2jPXhz8vMV2rxrRWoLk3JuMKJEWWEMLdjNbOcKQMuJz384yTzB5eFWEK6/u/wDSulh3tBaeqZ0tX2hiJc5LEN8P+7ullZCuIpUDjhJ+Ybd1eBxDmAdq1qtplR0ra7RpSc9nhKyriTwfVUfnb8Fc0nn41rktK0PrQ6hTbiThSVc//nn151ExEEndInUJNxs3qcNXpUpUY7lBq181c0Aq1PSqaAh51vPsd0cvVOog5IRi3QvpZCjyVjcI+/H4Vp1uhyrhNZhQ2VvSHlhDaEDJUScAV+om4dm9k3s8Zaua0iTjidCfiefIyQPHHIeAGanYGgpzzz+lFX0ni3SgqdP65bHHqi5wLLAXOnvIZbaSEpGOQwcJA2JJ3wBg7nllRH5/1xq+ZqOUpCQqPBSrKGQd1EDAUsjAJxsOgGwAFdfWuqbhqi6KlSlFDKSexYB7rY/ufE/+wrAV1x2PdZ5IaR9zXo7o1YdZ6msvYUpVNVhbEpSvptPEtKR1OKJXD0NuuIRA0larU6ptBlEzXWpsMt4z3UlDw7xSUjPQZrltbCy2264lxTbZyhxwl1KD9iQz3kfzAivvVKXmtQJitNy2Ux47TQQ1c25KR3BnHFtgnfHTOK7dlhPB0Pe5Phzo4LeptX+uOv8AtVrlvVt3aFZmtSzd+vmbdplklKXDhTbiwpS8pIUr63Gg9mpX2vo1+tericjSelGrs1FEi8THPdbXHI+Nw/OQcciR4b79M1omk2ON9BWlwOKwkqUlXEfVRQhX4k13/bRPXHvsthhfCizW5mFGA5IekfGsY6hHab+dXEOxA8ziF19dQ4GpPSbncr3KRbJwfnYUu5XpbmABnCuzWf2bQO2R3lnlsQmtn0/7LVSYwle4PPocGe3nSDFSvPzBtKVOYPiojPhWwexPSkB21GZKeaZatsdE99CwMPPrSVNA52whvBAO3EvNbJAtF01ZIL0tanASSloE9m2PIePmdz1qVhsJ1t5Sdkt2yLjeko0HkhpY8+vnsodail0W1wAbh2BJMgp8+ycSlSv5VE+Vac8/OtlxiIu00rTgG33lolS2cHAyr4loB2UhXeT0xyPuF3sF00s4JMNxbKhuUc21jwUnkR/8Fat7S7VFu9obuMRlLSbs2txSP8uY2gqCh5qShxCvHCSd6zicJ1SU4O6ezQwPSSr6S1RmbfPb1ZpWVJlMJRqG2qDNySMFLgPwujYgg7b4IOxwc7eYakjFYcVgqQhXEpRCVAK+sSs8AV9pxSlDokVl/YjcgNQWZLyuJqch6zSs/OkJCmSfHAXj0QK+9ZRA1cHUYUpbSiElKCSnHgQlwj7gKiPtwJVFdRXcF4nk10ZWouSGu1Vx/G8yo5V/FKdAH3IGK4NN8Ey33awtKQe3ZL6GoUQyXFuN5IBcO6RjJJTttyrL36G666XVQ5Drv11wHHlD+Z9YA+5NYzTSn0asgtuInOoW52RbXcG4oUFbYynZI351UOOWqvuekUs1F/bXyNJIwcVK7N0ZMe5SWCAC26pOAriAwfEc/WutVVJWbRaRd0mc8KVIhSm5UV1TTzZylQ6f+3lWT1ddrdeJkeTAtDdsUI6USQ24VB50fE5vyz4VhqlZU2ouPBmrgnJS4o71suT0JQSCVM8XEUZwQfFJ6H+vI5FZaXGj3SKHIziOJI7hxjH2SOg8vl5jKfh1uueDKehvh1lWD1B5KHnXSnVssstUazp3eaO5xOIU2tSFpKVJOCDzBqZrOS2mLvGMqGnhktjvtdSP7+X4emDII5gitJwy+BtGWbxGadaU61obgeFDSlAZfR+orlpXUMW+2laETIquNpS0BQB9DWX1bqK7a7lfpC6TnHZbacBCj3UjyHgfH8a1CuRh1xl1LrSuFQ5Gu0K0lHI/pOMqEHPrLdrvPl1C21lDiSlQ5g181n0+7XWLxKAQtOx33Qfv6E+Ox5HB3OJmw3oi8ODKCSErAOFY5jyPiDuKxOk0sy1RvGaej3OtSsrpW1xrxembfLuke2NO5HvD4JQk4JAON9zt99dO5QpFvmuxJKChxs436joR4g+NaODy5uBnOs2Xidavtk4eQTjAUOfKvmgODkVhOzuZaujcdUiK9qmQWTbn0qShSfdLUvgPdHJJxiu/aorTXC47BbbSTspy3MsD8XHRXW1UuRLi2m8vKuDjMuGlsvTZQabUpvuEICdykYAHWvmxqZaSH2m2W2xzeajoZQP+s/xKP8ozVpe1Zsq7XopfjyPWNDORw62toNlAUN2yCPxQkp/Ovv25shWo9QuN54XTBmp80FKkE/cXE/jWJ01Lw4ypzjWpW7ZXxqKh4p48rV6pQhPnW961Ya1DpWLfWY6n3LcwuJcWmyCtyGvbjG5yUHBG5GQneriPbhZHnan/ACxCk9tj79nj36Q01dITAPby7fFksgc18CA0pI9FtY/mFehey7UsS38C3eHbB3r8+6SvcrS1zZgSZbbYbUX7fO4SplaF7EKA3LLmBnG6FDPMEV6cq4acuCRNmuy7DJd7y3EJ7WO6T8yXEgoVnxyk+IzU7C16UqUqVX6X3FX0lgpympQ8Uzf/AGo6ngXNtSmyhGdyRyFaHrKEqyaPsqJZRxBx+4L4T8DaW3Dv4buIT6qrjbmaYiH3tiTM1C+13kJQ3wsII6rUoBCR5qUR5GtE1xrKVqftrHBEeTMlqBky0qIZYZQeLskqP+Ek99bh+Ij0zmvWowpKjT+ld/E1wOCq9Znk7tu7f7On7GY6133TTSEEqXe1yM9AhppAUfTKvyrPe0OS07cJTykoCFOKIK8Y5+Kk8P51kvZlBRZrVI1UUqTFYjGBaO0HCp0EkuvkHlxFSj5cQGRitS1NL7R5xxHGl3HGrgCuMDxPAQ5jzAcFQV2Yalqn1uJclstDQ7tHafK1tQ2nU/WagMP/APY5n8qwtkRGb1TADvuDKfeElRlWtaUAZ34kjJI8QKyN8W08lT7iWn2+rzjKJKB/1WglxP8AMM1xaKU6zdXbpGM5DNujrkKetssOBrAwlRSvcDiIznxqnm81ZeJ6OF40X4Gp3xaHLzNWgslKn1kFpPCjGT8IPIeVdOvt5ZceW4o5KlEk181VzeaTZZwVopAUNKlamwqgEkAAknlX0y04+6hplCnHFkJSlIySTyAFe0+zTQMezFF4vzaHJyd2mTulg+J6FQx6Ag9QSmThsLPEStHbvIuKxcMNC8t+CO77DvZy1BeZ1JqZocWCWIjmwSMZKnPIDfHTr4V5d7UbvbL1re5TbNDZiQC8QwlpHCFJG3FjxPP769O9smtHbdZF2WI7wzLg3wulPNpjw8ir+g868K671Jxs404qhDZbkHo+nUqzeKq7vReAFOtWp1qtLgUpUoBSlXFAcsR4sPJWCQOuBn8jz9OtbE04h9ghxKChSMkYKkqSOvipI8R3keYrWDW0WKDcLdZI+o5cYu2RUzs+0acSXGXUgHjCc5HMZzgKG2c4Ik4eTvbgcK6SV+JLRpJy83pmBCmRo3bAn9acwEDBOQoDvpPIEDPQgV9svxpiVac1Mv3WTHUURLgsZLB+o59Zs+PTnW032OrUCl3y0MRe1cy+uHDHZNuAc3Y2N21j5kdD48z0/couuIYaceDd/jpKWpPBgyh/lvI6ODoobK5c6lyoJLsLX0ZCVdvWb09U+edzQ7xbZtouDkGeyWnkYPPKVJPJSTyUkjcEc66dbEpx1hpq1ajbfcgoBTFktd9cbc/sydlIzzbOOuOE1iblb3YXA5xIfjO57GQ3uhz/AND4pOCKr5wsWEJ33M7p9bM7TcqCfdGZcRYkMurbU4+4ORabT8P2t8cufSrbX1icg4e96PwlWHpZ9OLuMjz5isHY7nLtFzZnwZDsd5snC21YVgjBAPmCRWx3mHETwTLU0g26cC43DTI4lN4OP1lwAYG2eHbIxyqVCWeCkt1v4cCNKOSbi9pbePFGy2OYkEcJSsOr4SWyXQ6sfKCe9JWOpOG0+dejaP1M/AlofbWlxCh30k8aXE/CQfrg/Dnko91AABNeNW2V2nCQQ+t5PZgn6Pt0p5pT/lRk4JURgqxjxxsdsuYQA6HXHEkBziSnhWtJ7gWE/KVn6NpPypyqrLDYiysyqxmEU000eqXrRMG+tre0yI0hhxRdcs8h7gU0s/EqO78pOOXI43B2rR5OnbvYHlpjztQWNRO7UiI5/wB7JIV68Iru269ONLCULT2uSPoz3eLiCO79ntClA+yyfGtmja9ujEQ9hc3wyEEoSpWduFZHP7PB+NTuxPUqVHEUeytV9zSm7FeL64lqVdL/AHkcw1HhOqGf4niEp9cGt1smg4tpjhepuxt0HIcXbWH+0kSSDke8O9EjGeEAAYJxkZrkl68uykOsuXJ4oBVxICsZwXNvv7Ij761m4X9Xe4nsBJILh3wAQCvzxltZ8UrXS0I6h/yKqy7L7Gx6x1GqaQhIRGix0lLTKMpQylO22NwB1I3TnPeSa8wvs9KgtLnClLSgpXap7rZPJSuDdvPR5vunqK5rtdVjIAdaKMnhQcrbLeygnxcazy+do4PKtVuUxSO8HEoLI4wWBnskq/xGs/Gwr5mz8JzyqJiMQrWRZ4LB5LaHWur63JhKg4qXjIy4G5OOhS6nuvJ9Rk183NbMDSoQr3V6dcHMlZbU1JYQnooDukKzz3Pd6VbPCZlOuOzkx0W+On3h5gu8Lb6QRn3dZ+FZ+r6+GBhdSXZ+8XNUl115baEhpgOr4lIaTshOeuBgVVylkg5vd6L9st4xzzUFstX+kYyrUpUAnCu9ZbVPvM9EK3R1vvK8NgkdSSdgB1J2FZzS2irhdkMzJZVBt7i+FDikFTj5+q0gbrPpsOpFepWeBAs0BcGFGQ02HAhwYDxU50SvH7d7waT3E81Zqww2AlU7U9EV2K6QhS7MNWdTROk4GnG0yuISp6kgqfwcJCth2YHeCSdgod9fJGBlVZPUeo41qtzst5QKGgAhsEHjPIJ22+XG23dOO6nv4663YNcaQ6ni763FKd4ggclqUsfEei3B/wAtvqa8n1ZfHLzMAQVCK0cNJIAKjsCogbAnAGBsAABsKsa+IhhaeWCKyhhZ4qrnqM6F4uMq63J+4THCt55XEo+HgB5DlXU6UxTpXn5Nyd2ejjFRVkN6DnTNWsGSUNKCgGKvSmalADWQsl3lWqQVtcLrKxwux3d23U9QR/eseaCsqTi7ow0mrM3e3SXbS2u/6YWqTbAoLmwHFHtIiuQUSN8dEuDp3TkEg5K5+4ajP6e06HmZbKC7MbY2fjY/xAgbrbxucfCckbbDC2+922Y1BYShqwT4jHYonR09yRkkntwdlA5wc7EDfwPcdhO228wrpb2W7NeWFh9tCF/qcrBzxsLz3c9UE48wDgWNOfBax52+PIr5w1u1aXO/z5ncDy9RPhMhcVi8SNg4QDCumAAMjYNv7cxji8Arng1RRCcdYRiAt7ZyHM78V/H1V9COhOCPrCtrHuGtr5ISkQtMalkd563SW+CBOXz7o5NKPQjb0+KutcGZMeS5Z9RMrs9yJwkXBPaR5GOQUvkrbGHAeIDGSocuuWM1zzzxOKm4u23253XOhps2yFSwmKhyPIVuIchQyv8A5TnwuDy2PrV07eV2d5623OO/Itjy0mbAKy12hTnhycZGCc1lpbD1pkG3SQbW4ocfuk4dtDeB5KbXvseh/wB1c0pcJaG0agtj7LJGG30qLzQH2HQeIDyyseVcVRyyzQdn6Hd1c0cs1dPz/H+eZwXO2liGu5xXTcrYvs0vvtIKeJwp4kxB4JGN8c8bdK+Yk2QXcJfQZXbcKXOSVSVDBX/AyjOOgO9d+w2ibFlJuOkL5DkqbJIjyFJyMjHIjBOD1Cas+1xS2lq4WqbpyV2TcZpxaFLjEqOHnlL3xkdBnr5V06qT7UVb2/DOSrRXZk7+/wCV8Bq6lLHHF4glLRXHHUISOwjj1KlrcPmc125dx7NuQltwlCEvpTv8iFMsJ/7VVjU2K6CQ29bw3PjKkLcbMZwKyzFTsSnmB13ArFPR7qxC7N6FKQoQmieJs79o/wBpn79vWs9ZVhumOrpTejRtr13LUh11SyUNOuOKHiG5mFD/AEuGui9cHI6Sg/TFhKgpB+csEtuJ/mYUk/yisOY9zlvrYbgylqednNBKWiSSoBWPxGa7SLPe3WjcX2kxmuyauKVPrSjtEH6JwpB+LJ6DwNOsqS2TMKnShu0cUyapJ4TLIUhbaO3zuFAZjyPvT3FeQq2q1vXBPvkh0Wq3MvlDkpSSUwnyCSjA3KF4O3r4HNeOmbE4W3X/ANPvsqcj8DZKI7rBTlCgvZXElRzjHQVin39RaqmNtMxZM1wNoaQ1GYJylIwnISNyAOZ3rk7J9rV9y/Z1V2uzou9/pH1qW+omR27XbGVwrU0oOCL2hWjtuEJW4M8uLHLpyrAVvDPs1usVoyNT3G26aZTg8M576dX8LKMrP3gVnrLZdMwGhLtlmevSUHCrne1e6wUnxS2Dlfpk+lY/i1q0s09Oe4fy6FGOWnr4fJomnNLXq/FS4UQpjI/aynlBtlseKlq2H9a3mw6ZsVoYM5So9yU2cKuMxJTBbUOjSPifV5Yx4jG9ZSbdHL092/Ezd24u3bvNiHaIfTuNjHGfXBP1TXxDVInSm5UV9ybIWezZuchjYY+SFH5bfWOAnmeDnU2jhqVLVashVsTWq6PRc8/pmTMp1TwUr3ovPtbBxYRLkNY5qPwxI+Og3I/GsJdbzumLCW0tzsintG/ommmvmDfVtn6yz33OnPfj1HcbYi3Ltdqc7R1DvaXK4OSO0YJxslasfTuA5IA7mdgFY4j59ebv7w2uJD7REZSuJ1bhy5IUPmWf6JGw8zvWcRi1TW4w2Ec3do5tSXr3pJgxHFGOCC47w8JfUNht8qBySnpz5msHXzX1VJUqSqSuy7hBQVkQVaVOtaG4xQVaUBMbVaClAM1M0xUoC5pypTmaAVmLHqKZbGTDcbbnW5SuJUN8ngB+sgjdtX2k4++sRUIraMnF3RrKKkrM3WIqFd4zTEWRHfc5/o+cezWk8/onBtn+EjPVB51sEDUrrraNN31wuNtHHY3NpJkNjHLvEIeGw3yhewwTjB8qI233rMRNQSkxEQLkyzdYKNkMywSpsfu3B30egOPI1KpYpx5554EWrhVL788/J6TKtDUS2hkj/wAIWsqTGlBb8HiOfgXs7HWdh4nOdxXQGk3Wit3S10kQVb8cOU4HmV89kupHCobHZxKDgcutYexXP3ffSep5FsWscKrXdcONKH1QvBQseSkpNZC43Z9uO03N04LJKbUpTk+1hTsd1JAHebCiG+u7ZTnPw1MVSnJJtc+PD0ITp1IuyfP3T3/FzC3SHIiuq/TmmFNLSd5NvV2ZHmQMp/IV3LPqGXFT2dn1tKioPOPcWyU+hI4kn8BWXt2prq4FhmTFvDR3IOJHP7Kih5P3KNfci4abnqCLrp5LLhJ4yy6Mn0S8lKv/ANhrdRW8Hz4o1bbWWcefBnwzer3I3kab0nfCoYLsYoadI8MtqSfyrvqvykoW3M9nuoWUOJbQ57ndHuEpbOUDCkr2SeQztWt/oLTj4BMaXFJGcjtEj8QlxP8Aur5RYoLSiImoZrQ6BMpnI+4uJP5VupVVx9V8HJ06L4W8/wBM2Z6/RZT3aK017QAfeFyO7cNw4sYUrPZcyNia6Aj2V8pDfsy1NL4RhPvdyWEgfcgbVjhbJHDhOpr4oeCFtn/+9fC7G0ofrEvUMry7ZhGfvLpo5VJbr2/0zGFOP0u3n8ozvbuwBmLoLRlk4f8AFuUnt1j7lrO/8tcUzWMxbfus7Xkkt9IOnoYYQfLiAQPyNde2aKkSE8cDRT8vG5dnXHKB5kNgf1rKItTtoRx3LWelNKMnm1bWC/Jx4DAKs+pFZ/6Jd3P4Ro3Sb3u/P/6Zi0MPx0CfC07Ds7ZOTcr+92rqvNKFDBPog1YKFXyUp6MxP1fMa+OVOUWIEcZG+CRtkjYlPMbUbkaTcnOK07Yb3rWckZcm3hwtx0H6xQk7D+NVcd91O6pkM3q8MOBvZu12pHYxWx4EowVegKR9o1z6xJXb05/HudVCUnovPf59jLS24AaWu+XFm6OMAJQoILcGCc54W2hjtFEDZJAzn4Vc6weq9UZadipW/GjuoDbyCoe+S0DklxQ2Ya8Gk48wemqXPUMqQoCMkR0IBS2UgZbSeiAMBA/hAJ6k1hCSokkkk7kmotbGq2WBMo4KzvM7dwuD8zgQoIaYb/ZMNjCEeg6nxJ3NdQCm9Wq+UnJ3ZYJJKyJ1q9aUrBkUpSgFKUoCYq1Kc6AtTFWlAMVKUoBmrUpQFNQ06VKAVkbferjCKeykKUlOwSsk49DnI+4isfStoycXdMw4qSszYUX2LKc4rhFSpfPjW0l3/d3XP95rIG8BVvSzbZMVMntc8T0xYTwY+HgdGxz14zWm1a7RxM4nGWHgzcGJl7+MWdL2/wAcYNuf0yfzrvM3y8pGDapII/zLc6ofkv8AtWgAAHIAB8cVyokSEfBIeT6OEf3rrHGTXFnKWDg+CPQmr/qYkBi0RcjqbO6f6g1zKvOuzwj9JRbUk8iIzUbH3qwa82W++v433l/xOE/3rjwM5wPwrLx0+9+Zr/Ap9y8rm+XR9Mtta9R+0eVMwP8Ay8XtJKleQ3DY/GsMq6aZgqSbZp5ya4n/ABrtI4wT49k3wp+4lVa7k0rhLESlw/fudoYeMdL/AK9rGWu2pLzc2fd5E1SIg+GKwkMsJ9G0AJ/KsSKCmK5SlKWrZ2jCMVaKsXnU61TyqDlWpsWlKnWgLSlKAUpSgFKUoCdKtQGrQCp1q1KAUxTrvTegFKChFADSmKtAQGm1DSgJSrSgAp0pg06UApilUUBKlU06UAFWlKAVMVanSgFBTpSgLSlKAUpTFAKUpQAcqUHKlAKUpQClKUBKVaUBOlByq0O1AKmKZq0BAKtTrQ0ANWpVoCYqmlKAUxSlABSlKAUpQ0BKYq0oCVaUoAalWhoBU61aYoAOVKnSm9AWpTerQAUpSgFKUoB1pSpvQFqUzTegLmlTFWgFKVBQFpSpvQFoam9DQFpUFWgFKVN6AtKhpigLSpvQUBaUpQClKUB//9k=" alt="OTDR Analyzer" class="brand-logo">
+          <div class="brand-text">
+            <h1 class="brand-title futuristic">OTDR <span class="accent-cyan">ANALYZER</span></h1>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main class="container">
+      <div class="app-panel active" id="panelBackbone">
+        <div class="glass-card">
+          <div class="card-header-flex">
+            <div class="card-title-group">
+              <h2>📡 Lector OTDR — Análisis de Trazas</h2>
+              <p>Sube hasta <b>48</b> archivos de lecturas de fibra óptica en formato <code>.trc</code>, <code>.sor</code> o <code>.msor</code>, visualiza cada traza y compila sus eventos.</p>
+            </div>
+          </div>
+          <div class="drop-zone" id="otdrDropZone">
+              <input type="file" id="otdrFileInput" accept=".trc, .sor, .msor" multiple style="display:none;">
+              <div class="drop-zone-icon">
+                <img src="data:image/jpeg;base64,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" alt="OTDR" class="drop-zone-image">
+              </div>
+              <h3>Arrastra y suelta tus archivos .trc / .sor / .msor aquí</h3>
+              <p>Puedes seleccionar varios archivos a la vez (máximo 48)</p>
+              <button class="btn btn-primary btn-sm" style="margin-top:8px;">Examinar Archivos en Disco</button>
+            </div>
+          <div class="otdr-viewer">
+            <div class="otdr-nav-bar">
+              <button class="btn btn-secondary btn-sm" id="btnOtdrPrev">◀ Anterior</button>
+              <span class="otdr-counter" id="otdrCounter">0 / 0</span>
+              <button class="btn btn-secondary btn-sm" id="btnOtdrNext">Siguiente ▶</button>
+              <select id="otdrFileSelect" class="otdr-file-select"></select>
+              <div class="nav-spacer"></div>
+              <button class="btn btn-secondary btn-sm" id="btnClearOtdr">🗑️ Limpiar</button>
+            </div>
+            <div class="otdr-info-bar" id="otdrInfoBar"></div>
+            <div class="otdr-viewer-row">
+              <div class="otdr-chart-box"><canvas id="otdrTraceChart"></canvas></div>
+              <div class="otdr-event-side">
+                <div class="event-nav-side">
+                  <button class="btn btn-secondary btn-sm event-nav-btn" id="btnOtdrEventPrev" title="Evento anterior">⏮ Anterior</button>
+                  <span class="event-counter-pill" id="otdrEventCounter">Evento 0 / 0</span>
+                  <button class="btn btn-primary btn-sm event-nav-btn" id="btnOtdrEventNext" title="Evento siguiente">Siguiente ⏭</button>
+                </div>
+                <aside class="otdr-event-info" id="otdrEventInfo" aria-live="polite"></aside>
+              </div>
+            </div>
+          </div>
+          <div class="card-header-flex" style="margin-top: 24px;">
+            <div class="card-title-group">
+              <h2>📋 Compilado de Eventos por Hilo</h2>
+              <p>Cada hilo en una fila y una columna por distancia de evento (km). Haz clic en una pérdida para ver el evento.</p>
+            </div>
+          </div>
+          <div class="table-responsive" style="max-height: 420px;">
+            <table class="clients-table">
+              <thead><tr id="otdrEventsHeadRow"><th>Hilo / Archivo</th></tr></thead>
+              <tbody id="otdrEventsTableBody"></tbody>
+            </table>
+          </div>
+          <div class="otdr-table-actions">
+            <button class="btn btn-primary" id="btnExportOtdr">📥 Descargar Compilado (.xlsx)</button>
+            <button class="btn btn-secondary" id="btnExportOtdrSummary">📊 Descargar Resumen (.xlsx)</button>
+          </div>
+          <div class="card-header-flex" style="margin-top: 24px;">
+            <div class="card-title-group">
+              <h2>🚨 Eventos con Pérdida Mayor a 0,22 dB</h2>
+              <p>Solo se registran los eventos cuya pérdida supera <b>0,22 dB</b>.</p>
+            </div>
+          </div>
+          <div class="table-responsive" style="max-height: 420px;">
+            <table class="clients-table">
+              <thead><tr id="otdrFilteredHeadRow"><th>Hilo / Archivo</th></tr></thead>
+              <tbody id="otdrFilteredTableBody"></tbody>
+            </table>
+          </div>
+          <div class="otdr-table-actions">
+            <button class="btn btn-secondary" id="btnExportOtdrFiltered">📥 Descargar Eventos &gt; 0,22 dB (.xlsx)</button>
+          </div>
+          <div class="card-header-flex" style="margin-top: 24px;">
+            <div class="card-title-group">
+              <h2>📄 Resumen por Hilo</h2>
+              <p>Una fila por distancia registrada (km) con la cantidad de eventos y su detalle.</p>
+            </div>
+          </div>
+          <div class="table-responsive" style="max-height: 240px;">
+            <table class="clients-table">
+              <thead><tr><th>Distancia (km)</th><th>Cantidad de Eventos</th><th>Detalle de Eventos</th></tr></thead>
+              <tbody id="otdrSummaryTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer class="app-footer">
+      <div class="container footer-inner">
+        <span>OTDR Analyzer · <code>.trc</code> · <code>.sor</code> · <code>.msor</code></span>
+        <div class="visitor-counter" id="visitorCounter">
+          <span class="visitor-eye">👁</span>
+          <span class="visitor-label">Visitas</span>
+          <span class="visitor-count" id="visitorCount">0</span>
+        </div>
+        <span>←/→ eventos · PageUp/PageDown lecturas</span>
+      </div>
+    </footer>
+  </div>
+  <script>
+/* OTDR Trace Parser (.trc / .sor) — BackBone Interurbano
+ *
+ * Multi-vendor reader for OTDR trace files (Bellcore, EXFO, Anritsu,
+ * Fluke, INNO, …):
+ *  - EXFO native .trc ("AppReg Format Ex" container: several concatenated
+ *    zlib streams holding a binary attribute tree — trace samples,
+ *    acquisition parameters and the event table). The streams are
+ *    inflated with a built-in DEFLATE decoder so no browser API or
+ *    trailing-garbage behaviour is relied upon.
+ *  - Bellcore v2 with binary "Map" directory (no ^ keywords: Map\0 +
+ *    block table; DataPts = i16 samples, KeyEvents = fixed records).
+ *    The x-axis unit is resolved with a physical plausibility test
+ *    (dB/km of the backscatter slope).
+ *  - Bellcore SR-4731 v1 (all-ASCII sections: ^DATA POINTS, ^KEY EVENTS…)
+ *  - Bellcore SR-4731 v2 (ASCII keyword headers + binary DataPts / EVENTS
+ *    blocks; layout, endianness and record size are auto-detected and
+ *    validated)
+ * Distances arrive in km, meters or propagation time (µs/ns/100 ps,
+ * one-way or round-trip) depending on the vendor — everything is
+ * normalized to km. Traces without an EVENTS block get their events
+ * estimated from the trace shape, and files whose DataPts block cannot be
+ * read structurally have the series recovered straight from the raw
+ * bytes, so every reading can be visualized and navigated.
+ */
+
+/* DEFLATE decoding tables (RFC 1951) — used by the built-in zlib inflate
+   of the EXFO .trc reader. */
+const DEFLATE_ORDER = [16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15];
+const DEFLATE_LBASE = [3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 15, 17, 19, 23, 27, 31, 35, 43, 51, 59, 67, 83, 99, 115, 131, 163, 195, 227, 258];
+const DEFLATE_LEXT = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 0];
+const DEFLATE_DBASE = [1, 2, 3, 4, 5, 7, 9, 13, 17, 25, 33, 49, 65, 97, 129, 193, 257, 385, 513, 769, 1025, 1537, 2049, 3073, 4097, 6145, 8193, 12289, 16385, 24577];
+const DEFLATE_DEXT = [0, 0, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13];
+
+class OTDRParser {
+  /** Parse a browser File → Promise<{success, error?, trace?}> */
+  async parseFile(file) {
+    try {
+      const buf = await file.arrayBuffer();
+      return this.parseBuffer(buf, file.name);
+    } catch (e) {
+      return { success: false, error: `No se pudo leer el archivo: ${e.message}` };
+    }
+  }
+
+  parseBuffer(buf, fileName) {
+    const bytes = new Uint8Array(buf);
+
+    // EXFO native .trc container (zlib streams + attribute tree) — tried
+    // before the Bellcore keyword paths.
+    const exfo = this._parseExfoTrc(bytes, fileName);
+    if (exfo) return { success: true, trace: this._truncateAfterEndOfFiber(exfo) };
+
+    // Bellcore v2 with binary Map directory (no ^ section keywords).
+    const mapTrace = this._parseMapFormat(bytes, fileName);
+    if (mapTrace) return { success: true, trace: this._truncateAfterEndOfFiber(mapTrace) };
+
+    const text = this._decodeLatin1(bytes);
+    const sections = this._findSections(text);
+
+    const trace = {
+      fileName,
+      hiloName: String(fileName || '').replace(/\.(trc|sor|msor)$/i, ''),
+      params: {},
+      events: [],
+      points: []
+    };
+
+    if (Object.keys(sections).length) {
+      this._parseFileHeader(trace, sections);
+      this._parseParams(trace, sections);
+      this._parseSettings(trace, sections);
+      this._parseDataPts(trace, sections, bytes, text);
+      this._parseEvents(trace, sections, bytes, text);
+    }
+
+    if (!trace.points.length) {
+      // Vendor layout without a readable DataPts block: take the series
+      // straight from the raw bytes (display only — no conversion).
+      const pts = this._recoverPoints(bytes);
+      if (pts) trace.points = pts;
+    }
+
+    this._normalizeTraceUnits(trace);
+    this._normalizeUnits(trace);
+
+    // Files without an EVENTS block get their events estimated from the
+    // trace shape.
+    this._estimateEventsIfMissing(trace);
+
+    trace.points = trace.points.filter(p => Number.isFinite(p.x) && Number.isFinite(p.y));
+
+    if (!trace.points.length) {
+      return Object.keys(sections).length
+        ? { success: false, error: 'Encabezado reconocido, pero no se pudo extraer la traza de puntos.' }
+        : { success: false, error: 'Formato no reconocido: no contiene encabezados Bellcore.' };
+    }
+
+    return { success: true, trace: this._truncateAfterEndOfFiber(trace) };
+  }
+
+  /** Nothing is graphed beyond the end-of-fiber event: the samples that
+   *  follow it are noise after the link ends. */
+  _truncateAfterEndOfFiber(trace) {
+    const evs = trace.events || [];
+    const last = evs[evs.length - 1];
+    if (!last || last.type !== 4 || !Number.isFinite(last.distance)) return trace;
+    const cut = last.distance + 1e-9;
+    const kept = trace.points.filter(p => p.x <= cut);
+    if (kept.length > 1) trace.points = kept;
+    return trace;
+  }
+
+  /* ------------------------------------------------------------------
+     Section discovery — accepts v1 (^DATA POINTS, ^KEY EVENTS) and
+     v2 (^DataPts, ^KEYEVENTS) keyword variants, case-insensitive,
+     with or without inner spaces (^DATAPOINTS).
+     ------------------------------------------------------------------ */
+
+  _findSections(text) {
+    const map = {};
+    const re = /\^(FILE|PARAMS|MAP|OTDR\s*SETTINGS|OTDR\s*PULSES|FIXEDINFO|SUPPARAMS|DATAPOINTS|DATA\s*POINTS|DataPts|KEY\s*EVENTS|KEYEVENTS|EVENTS|NOTICES|OLTS|COMMENT)([^\n]*)\n?/gi;
+    let m;
+    while ((m = re.exec(text)) !== null) {
+      let kw = m[1].toUpperCase().replace(/\s+/g, '');
+      if (kw === 'DATAPTS') kw = 'DATAPOINTS'; // v2 writes ^DataPts, v1 ^DATA POINTS
+      if (!map[kw]) map[kw] = { header: m[0], body: m.index + m[0].length };
+    }
+    return map;
+  }
+
+  _headerNumbers(header) {
+    return (header.match(/-?\d+(?:\.\d+)?/g) || []).map(Number);
+  }
+
+  _decodeLatin1(bytes) {
+    let s = '';
+    const CH = 8192;
+    for (let i = 0; i < bytes.length; i += CH) {
+      s += String.fromCharCode.apply(null, bytes.subarray(i, Math.min(i + CH, bytes.length)));
+    }
+    return s;
+  }
+
+  _headerStrings(header) {
+    return (header.match(/"([^"]*)"/g) || []).map(s => s.slice(1, -1));
+  }
+
+  /** True if the section body starts with plain numeric ASCII text (v1). */
+  _isAsciiBody(bytes, start, end) {
+    const lim = Math.min(start + 300, end);
+    let digits = 0, total = 0;
+    for (let i = start; i < lim; i++) {
+      const c = bytes[i];
+      if (c === 10 || c === 13 || c === 32 || c === 9) continue;
+      total++;
+      if ((c >= 48 && c <= 57) || c === 46 || c === 45 || c === 43 || c === 101 || c === 69) digits++;
+    }
+    return total > 0 && digits === total;
+  }
+
+  /** End index of a section = start of the next `^KEYWORD` line. */
+  _sectionEnd(text, bodyStart) {
+    const rest = text.slice(bodyStart);
+    const m = rest.search(/\^(FILE|PARAMS|MAP|OTDR|DATAPOINTS|DATA\s*POINTS|DataPts|KEY\s*EVENTS|KEYEVENTS|EVENTS|NOTICES|SUPPARAMS|FIXEDINFO|OLTS|COMMENT)(?=[ \t\r\n]|$)/i);
+    return m === -1 ? text.length : bodyStart + m;
+  }
+
+  /* ------------------------------------------------------------------
+     Header / parameter parsers
+     ------------------------------------------------------------------ */
+
+  _parseFileHeader(trace, sections) {
+    const sec = sections['FILE'];
+    if (!sec) return;
+    const mold = (sec.header.match(/\(([^)]*)\)/) || [])[1];
+    if (mold) trace.params.vendor = mold.trim();
+    const dt = sec.header.match(/(\d{8})\s+(\d{2}:\d{2}(?::\d{2})?)/);
+    if (dt) trace.params.acquired = `${dt[1].slice(0, 4)}-${dt[1].slice(4, 6)}-${dt[1].slice(6, 8)} ${dt[2]}`;
+  }
+
+  _parseParams(trace, sections) {
+    const sec = sections['PARAMS'];
+    if (!sec) return;
+    const strs = this._headerStrings(sec.header);
+    const nums = this._headerNumbers(sec.header);
+
+    // ^PARAMS <lang> "cableid" "fiberid" <wavelength> <offset> "locA" "locB" "code"
+    const wl = nums.find(n => n >= 350 && n <= 1700);
+    if (wl) trace.params.wavelength = wl;
+    if (strs[0]) trace.params.cableId = strs[0];
+    if (strs[1]) trace.params.fiberId = strs[1];
+    if (strs[2]) trace.params.locationA = strs[2];
+    if (strs[3]) trace.params.locationB = strs[3];
+
+    const hilo = [strs[0], strs[1]].filter(Boolean).join(' / ');
+    if (hilo) trace.hiloName = hilo;
+  }
+
+  _parseSettings(trace, sections) {
+    const sec = sections['OTDRSETTINGS'];
+    if (!sec) return;
+
+    // Tokenize (quoted strings are single tokens) and keep the numbers that
+    // follow the instrument strings: per the Bellcore spec they are
+    // <wavelength> <range km> <resolution m> <pulse ns> <caldate> …
+    const tokens = sec.header.match(/"[^"]*"|[^\s"]+/g) || [];
+    let strCount = 0;
+    const after = [];
+    tokens.forEach(t => {
+      if (t.startsWith('"')) { strCount++; return; }
+      if (/^[-+]?\d+(\.\d+)?$/.test(t) && strCount >= 3) after.push(Number(t));
+    });
+
+    const WAVELENGTHS = [850, 1270, 1310, 1490, 1550, 1625, 1650];
+    if (after.length >= 4) {
+      const wl = after.find(n => WAVELENGTHS.includes(n));
+      if (!trace.params.wavelength && wl) trace.params.wavelength = wl;
+      if (!trace.params.range && after[1] > 0 && after[1] <= 2000) trace.params.range = after[1];
+      if (!trace.params.pulse && after[3] > 0 && after[3] <= 50000) trace.params.pulse = after[3];
+    }
+
+    // Fallback heuristics for non-standard headers
+    const nums = this._headerNumbers(sec.header);
+    if (!trace.params.wavelength) {
+      const wl = nums.find(n => n >= 350 && n <= 1700);
+      if (wl) trace.params.wavelength = wl;
+    }
+    if (!trace.params.range) {
+      const range = nums.find(n => n >= 0.05 && n <= 1000);
+      if (range !== undefined) trace.params.range = range;
+    }
+    if (!trace.params.pulse) {
+      const pulse = nums.find(n => n >= 1 && n <= 20000 && n !== trace.params.wavelength);
+      if (pulse !== undefined) trace.params.pulse = pulse;
+    }
+  }
+
+  /* ------------------------------------------------------------------
+     DataPts: ASCII (v1) or binary (v2) with auto-detected layout
+     ------------------------------------------------------------------ */
+
+  _parseDataPts(trace, sections, bytes, text) {
+    const sec = sections['DATAPOINTS'];
+    if (!sec) return;
+    const nums = this._headerNumbers(sec.header);
+    const declared = Math.max(...nums.filter(Number.isInteger).filter(n => n > 0), 0);
+    if (declared) trace.params.numpts = declared;
+    const end = this._sectionEnd(text, sec.body);
+
+    let points = null;
+
+    if (this._isAsciiBody(bytes, sec.body, end)) {
+      // v1 ASCII: plain numbers, pairs of (distance, loss)
+      const vals = (text.slice(sec.body, end).match(/-?\d+(?:\.\d+)?(?:[eE][-+]?\d+)?/g) || []).map(Number);
+      if (vals.length >= 4) {
+        const pts = [];
+        for (let i = 0; i + 1 < vals.length; i += 2) {
+          pts.push({ x: vals[i], y: vals[i + 1] });
+        }
+        points = pts;
+      }
+    } else {
+      // v2 binary: try the standard layouts first, then a tolerant scan
+      points =
+        this._readBinaryPairs(bytes, sec.body, end, declared, false) ||
+        this._readBinaryPairs(bytes, sec.body, end, declared, true) ||
+        this._readBinaryLosses(bytes, sec.body, end, declared, trace.params.range, false) ||
+        this._readBinaryLosses(bytes, sec.body, end, declared, trace.params.range, true) ||
+        this._scanBinaryPairs(bytes, sec.body, end);
+    }
+
+    if (points && points.length > 1) trace.points = this._decimate(points, 20000);
+  }
+
+  /** float32 (distance, loss) pairs at the section start. */
+  _readBinaryPairs(bytes, start, end, declared, le) {
+    const maxPts = Math.min(declared || Infinity, Math.floor((end - start) / 8), 60000);
+    if (maxPts < 2) return null;
+    const dv = new DataView(bytes.buffer, bytes.byteOffset);
+    const pts = [];
+    for (let i = 0; i < maxPts; i++) {
+      const o = start + i * 8;
+      pts.push({ x: dv.getFloat32(o, le), y: dv.getFloat32(o + 4, le) });
+    }
+    return this._validates(pts) ? pts : null;
+  }
+
+  /** Losses only (uniform x spacing from range / numpts). */
+  _readBinaryLosses(bytes, start, end, declared, range, le) {
+    const maxPts = Math.min(declared || Infinity, Math.floor((end - start) / 4), 60000);
+    if (maxPts < 2 || !range) return null;
+    const dv = new DataView(bytes.buffer, bytes.byteOffset);
+    const step = range / (maxPts - 1);
+    const pts = [];
+    for (let i = 0; i < maxPts; i++) {
+      pts.push({ x: i * step, y: dv.getFloat32(start + i * 4, le) });
+    }
+    return this._validates(pts) ? pts : null;
+  }
+
+  /** Tolerant scan: longest monotonic float32 (x, y) run within the section,
+   *  trying both endiannesses and every byte alignment (handles vendor
+   *  padding or data not starting exactly at the section body). */
+  _scanBinaryPairs(bytes, start, end) {
+    const dv = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+    let best = null;
+
+    for (let le = 0; le <= 1; le++) {
+      for (let off = start; off < Math.min(start + 8, end); off++) {
+        let runStart = -1, runLen = 0, prevX = null;
+        const closeRun = () => {
+          if (runLen >= 100 && (!best || runLen > best.len)) {
+            best = { start: runStart, len: runLen, le: !!le };
+          }
+        };
+        for (let p = off; p + 8 <= end; p += 8) {
+          const x = dv.getFloat32(p, !!le);
+          const y = dv.getFloat32(p + 4, !!le);
+          const ok = Number.isFinite(x) && Number.isFinite(y) &&
+            x >= -1 && x <= 1e7 && Math.abs(y) < 500;
+          if (ok && (prevX === null || x >= prevX - 1e-6)) {
+            if (runStart === -1) runStart = p;
+            runLen++;
+            prevX = x;
+          } else {
+            closeRun();
+            runStart = -1; runLen = 0; prevX = null;
+          }
+        }
+        closeRun();
+      }
+    }
+    if (!best) return null;
+
+    const pts = [];
+    for (let i = 0; i < best.len; i++) {
+      const p = best.start + i * 8;
+      pts.push({ x: dv.getFloat32(p, best.le), y: dv.getFloat32(p + 4, best.le) });
+    }
+    return this._validates(pts) ? pts : null;
+  }
+
+  /* ------------------------------------------------------------------
+     Events: ASCII (v1) or binary (v2) with auto-detected record layout
+     ------------------------------------------------------------------ */
+
+  _parseEvents(trace, sections, bytes, text) {
+    // v2 detail list first; fall back to the v1 summary (^KEY EVENTS) when
+    // the preferred section is empty or unreadable.
+    const candidates = [sections['EVENTS'], sections['KEYEVENTS']].filter(Boolean);
+    for (const sec of candidates) {
+      const events = this._readEventSection(sec, bytes, text);
+      if (events && events.length) {
+        const nums = this._headerNumbers(sec.header);
+        const declared = Math.max(...nums.filter(Number.isInteger).filter(n => n > 0), 0);
+        trace.events = events.slice(0, declared || events.length);
+        return;
+      }
+    }
+  }
+
+  _readEventSection(sec, bytes, text) {
+    const nums = this._headerNumbers(sec.header);
+    const declared = Math.max(...nums.filter(Number.isInteger).filter(n => n > 0), 0);
+    const end = this._sectionEnd(text, sec.body);
+
+    if (this._isAsciiBody(bytes, sec.body, end)) {
+      // v1 ASCII: one line per event: num type dist slope loss reflect
+      const lines = text.slice(sec.body, end).split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+      const events = [];
+      lines.forEach(line => {
+        const v = (line.match(/-?\d+(?:\.\d+)?/g) || []).map(Number);
+        if (v.length >= 5) {
+          events.push(this._makeEvent(v[0], v[1], v[2], v[4], v[5] !== undefined ? v[5] : null));
+        }
+      });
+      return events;
+    }
+    if (bytes.length > sec.body + 8 && declared > 0) {
+      return this._readBinaryEvents(bytes, sec.body, end, declared);
+    }
+    return null;
+  }
+ /**
+   * Binary event records: [uint16 num, uint16 type, f32 dist, f32 slope,
+   * f32 splice loss, f32 reflectance, f32 event loss, uint16 OK, uint16
+   * END, …extras]. The record size and the loss field offset vary by
+   * vendor/version, so candidate layouts are scored: the one where event
+   * numbers sequence 1..N, types are 0-10 and distances are sane wins.
+   */
+  _readBinaryEvents(bytes, start, end, declared) {
+    const dv = new DataView(bytes.buffer, bytes.byteOffset);
+    const sizes = [22, 24, 26, 28, 30, 32, 34, 36, 40, 42, 44, 48];
+    const lossOffsets = [12, 16, 20];
+    let best = null, bestScore = -1;
+
+    [false, true].forEach(le => {
+      sizes.forEach(size => {
+        lossOffsets.forEach(lo => {
+          const n = Math.min(declared, Math.floor((end - start) / size), 500);
+          if (n < 1) return;
+          const evs = [];
+          let score = 0;
+          for (let i = 0; i < n; i++) {
+            const o = start + i * size;
+            const num = dv.getUint16(o, le);
+            const type = dv.getUint16(o + 2, le);
+            const dist = dv.getFloat32(o + 4, le);
+            const loss = dv.getFloat32(o + lo, le);
+            const refl = dv.getFloat32(o + lo + 4, le);
+            evs.push(this._makeEvent(num, type, dist, loss, refl));
+            if (num === i + 1) score += 1;
+            if (type >= 0 && type <= 10) score += 0.5;
+            if (dist >= 0 && dist < 2000) score += 0.5;
+          }
+          const maxScore = n * 2;
+          if (score / maxScore > 0.7 && score > bestScore) {
+            bestScore = score;
+            best = evs;
+          }
+        });
+      });
+    });
+
+    return best;
+  }
+
+  _makeEvent(num, type, dist, loss, refl) {
+    const TYPES = {
+      0: 'Sin Evento',
+      1: 'Reflexión',
+      2: 'Pérdida / Splice',
+      3: 'Múltiple',
+      4: 'Fin de Fibra',
+      5: 'Ruido',
+      6: 'Ruido',
+      999: 'Fin de Fibra'
+    };
+    return {
+      num,
+      type,
+      typeName: TYPES[type] !== undefined ? TYPES[type] : `Tipo ${type}`,
+      distance: Number(dist),
+      loss: Number.isFinite(loss) ? Number(loss) : null,
+      reflect: Number.isFinite(refl) ? Number(refl) : null
+    };
+  }
+
+  /* ------------------------------------------------------------------
+     EXFO native .trc — "AppReg Format Ex" container
+     ------------------------------------------------------------------ */
+
+  /** EXFO .trc: several concatenated zlib streams inflate to a binary
+   *  attribute tree. Numeric nodes are [header][f64 value]["name\0"],
+   *  arrays are [header][data]["name\0"], so every value sits right
+   *  before its name. Returns a ready trace or null. */
+  _parseExfoTrc(bytes, fileName) {
+    const HDR = 'AppReg Format';
+    let isAppReg = bytes.length > HDR.length + 2;
+    if (isAppReg) {
+      for (let i = 0; i < HDR.length; i++) {
+        if (bytes[i] !== HDR.charCodeAt(i)) { isAppReg = false; break; }
+      }
+    }
+    if (!isAppReg && !/\.trc$/i.test(String(fileName || ''))) return null;
+
+    const all = this._inflateAllStreams(bytes);
+    if (!all || all.length < 500) return null;
+    if (this._findBytes(all, 'OtdrData\0', 0) < 0 && this._findBytes(all, 'RawSamples\0', 0) < 0) return null;
+
+    const dv = new DataView(all.buffer, all.byteOffset, all.byteLength);
+    const num = nm => {
+      const i = this._findBytes(all, nm + '\0', 0);
+      return i >= 8 ? dv.getFloat64(i - 8, true) : null;
+    };
+
+    // ---- trace samples: the RawSamples blob ends right at its name ----
+    const rIdx = this._findBytes(all, 'RawSamples\0', 0);
+    let dataStart = -1, nSamples = 0;
+    if (rIdx > 16) {
+      // the node header carries [u32 size][u32 dataStart] just before the
+      // blob; both fields must be self-consistent with the name position
+      for (let p = Math.max(0, rIdx - 500000); p <= rIdx - 16; p++) {
+        const sz = dv.getUint32(p, true), ds = dv.getUint32(p + 4, true);
+        if (ds === p + 8 && sz >= 200 && sz % 2 === 0 && ds + sz === rIdx) {
+          dataStart = ds;
+          nSamples = sz / 2;
+          break;
+        }
+      }
+    }
+    if (dataStart < 0) {
+      // fallback: smoothest descending i16 run anywhere in the blob
+      const run = this._scanI16Run(all);
+      if (!run) return null;
+      dataStart = run.start;
+      nSamples = run.n;
+    }
+    if (nSamples < 100 || dataStart + nSamples * 2 > all.length) return null;
+
+    const scale = num('ScaleFactor');
+    const yDiv = scale > 1 ? scale : 1024;
+    const ys = new Array(nSamples);
+    for (let i = 0; i < nSamples; i++) ys[i] = dv.getInt16(dataStart + i * 2, true) / yDiv;
+    this._flipIfAscending(ys);
+
+    // ---- x axis: the acquisition time window (RangeStart..RangeEnd) mapped
+    // to one-way distance. Samples are acquired uniformly across the WHOLE
+    // window, which can be much longer than the fiber (e.g. a 60 km range
+    // on a 39 km fiber): using SpansLength (the fiber end) as the sample
+    // span would compress the trace and pull the end-of-fiber collapse to
+    // ~2/3 of its true distance. ----
+    const ior = num('Ior');
+    const V = 299792458 / (ior > 1.3 && ior < 2.5 ? ior : 1.468); // one-way speed m/s
+    const rs = num('RangeStart'), re = num('RangeEnd');
+    let axisSpanM = rs !== null && re !== null && re > rs ? (re - rs) / 2 * V : null;
+    if (!(axisSpanM > 100 && axisSpanM < 1e7)) axisSpanM = num('SpansLength');
+    if (!(axisSpanM > 100 && axisSpanM < 1e7)) axisSpanM = nSamples;
+    // fiber length (where the last event sits) — end events live at the
+    // fiber end, not at the end of the acquisition window
+    let fiberSpanM = num('SpansLength');
+    if (!(fiberSpanM > 100 && fiberSpanM < 1e7)) fiberSpanM = axisSpanM;
+
+    const stepKm = axisSpanM / 1000 / (nSamples - 1);
+    const points = new Array(nSamples);
+    for (let i = 0; i < nSamples; i++) points[i] = { x: +(i * stepKm).toFixed(6), y: ys[i] };
+
+    const trace = {
+      fileName,
+      hiloName: String(fileName || '').replace(/\.(trc|sor|msor)$/i, ''),
+      params: { vendor: 'EXFO', range: +(axisSpanM / 1000).toFixed(2), numpts: nSamples },
+      events: [],
+      points: this._decimate(points, 20000)
+    };
+    const wl = num('Wavelength');
+    if (wl > 1e-6 && wl < 2e-6) trace.params.wavelength = Math.round(wl * 1e9);
+    const pulse = num('Pulse');
+    if (pulse > 0 && pulse < 1e-4) trace.params.pulse = Math.round(pulse * 1e9);
+
+    this._readExfoEvents(all, dv, trace, fiberSpanM);
+    this._estimateEventsIfMissing(trace);
+    return trace;
+  }
+
+  /** EventTable nodes: an event repeats "Position" followed by "CurveLevel"
+   *  before the next "Position" (the interleaved entries carry the fiber
+   *  section loss between events instead). Each event carries its own "Loss"
+   *  node (dB, may be negative on gain splices) — do NOT compute it from
+   *  CurveLevel differences, those include the fiber attenuation of the
+   *  whole span between events. Positions are meters.
+   *  Each event also gets cumLoss: the running link loss (fiber sections +
+   *  splices) from the start up to that event; at the end-of-fiber event it
+   *  equals the file's declared SpansLoss (total link loss). */
+  _readExfoEvents(all, dv, trace, spanM) {
+    const etIdx = this._findBytes(all, 'EventTable\0', 0);
+    if (etIdx < 0) return;
+    const positions = [];
+    let q = etIdx;
+    while ((q = this._findBytes(all, 'Position\0', q + 1)) >= 0 && q < etIdx + 200000) {
+      positions.push(q);
+    }
+    const spIdx = this._findBytes(all, 'SpansLoss\0', 0);
+    const spansLoss = spIdx >= 0 ? dv.getFloat64(spIdx - 8, true) : null;
+    const raw = [];
+    let running = 0; // cumulative link loss in dB
+    for (let k = 0; k < positions.length; k++) {
+      const next = k + 1 < positions.length ? positions[k + 1] : Infinity;
+      const cl = this._findBytes(all, 'CurveLevel\0', positions[k] + 1);
+      const ls = this._findBytes(all, 'Loss\0', positions[k] + 1);
+      const loss = ls >= 0 && ls < next ? dv.getFloat64(ls - 8, true) : null;
+      if (cl < 0 || cl >= next) {
+        // fiber section between this event and the next one
+        if (loss !== null) running += loss;
+        continue;
+      }
+      const rf = this._findBytes(all, 'Reflectance\0', positions[k] + 1);
+      const pos = dv.getFloat64(positions[k] - 8, true);
+      if (!(pos >= 0 && pos <= spanM * 1.05)) continue;
+      if (loss !== null) running += loss;
+      raw.push({
+        pos,
+        loss,
+        refl: rf >= 0 && rf < next ? dv.getFloat64(rf - 8, true) : null,
+        cum: running
+      });
+    }
+    if (!raw.length) return;
+    const evs = [];
+    raw.forEach((r, i) => {
+      let type = r.refl !== null ? 1 : 2;
+      const isEnd = i === raw.length - 1 && r.pos >= spanM * 0.95;
+      if (isEnd) type = 4;
+      // at the end of fiber the running total must match the file's declared
+      // total link loss (SpansLoss)
+      const cum = isEnd && spansLoss != null ? spansLoss : r.cum;
+      const ev = this._makeEvent(evs.length + 1, type, +(r.pos / 1000).toFixed(4),
+        r.loss !== null ? +r.loss.toFixed(3) : null, r.refl);
+      ev.cumLoss = +cum.toFixed(3);
+      evs.push(ev);
+    });
+    trace.events = evs;
+  }
+ /* ------------------------------------------------------------------
+     Bellcore v2 "Map" binary directory (.sor without ^ keywords)
+     ------------------------------------------------------------------ */
+
+  /** Map layout: "Map\0" + u16 rev + u32 mapLen + u16 count, then count
+   *  entries [name\0 + u16 rev + u32 len]; the block area starts at
+   *  mapLen and holds [name\0][content] blocks whose total size is the
+   *  directory len. */
+  _parseMapFormat(bytes, fileName) {
+    if (bytes.length < 64) return null;
+    if (String.fromCharCode(bytes[0], bytes[1], bytes[2], bytes[3]) !== 'Map\x00') return null;
+    const dv = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+    const cstr = o => {
+      let e = o;
+      while (e < bytes.length && bytes[e] !== 0 && e - o < 64) e++;
+      return [this._decodeLatin1(bytes.subarray(o, e)), e + 1];
+    };
+    try {
+      let o = 6; // "Map\0" + u16 revision
+      const mapLen = dv.getUint32(o, true); o += 4;
+      const count = dv.getUint16(o, true); o += 2;
+      const entries = [];
+      for (let i = 0; i < count && i < 32 && o + 6 < bytes.length; i++) {
+        // el directorio termina en mapLen; count puede incluir el propio Map
+        // (que no aparece listado), así que no leer más allá
+        if (mapLen > 12 && o >= mapLen) break;
+        const [name, no] = cstr(o);
+        if (!name) break;
+        entries.push({ name, len: dv.getUint32(no + 2, true) });
+        o = no + 6;
+      }
+      if (!entries.length || !entries[0].len) return null;
+
+      // blocks start where the directory ends (mapLen); fall back to the
+      // computed end of entries if mapLen is absent or disagrees
+      for (const s of [mapLen, o]) {
+        if (!(s > 0 && s < bytes.length)) continue;
+        const blocks = this._walkMapBlocks(bytes, entries, s, cstr);
+        if (blocks) {
+          const trace = this._readMapTrace(bytes, dv, blocks, fileName);
+          if (trace) return trace;
+        }
+      }
+    } catch (e) { /* not a Map file after all */ }
+    return null;
+  }
+
+  _walkMapBlocks(bytes, entries, start, cstr) {
+    const blocks = {};
+    let p = start;
+    for (const e of entries) {
+      if (e.name === 'Map') continue;
+      if (!(e.len > 0)) continue; // entrada nula: count puede incluir el Map
+      if (p >= bytes.length) return null;
+      const [bn, after] = cstr(p);
+      if (bn !== e.name) return null;
+      blocks[e.name.toUpperCase()] = { start: after, end: Math.min(p + e.len, bytes.length) };
+      p += e.len;
+    }
+    return blocks;
+  }
+
+  _readMapTrace(bytes, dv, blocks, fileName) {
+    const dp = blocks['DATAPTS'] || blocks['DATAPOINTS'];
+    if (!dp || dp.end - dp.start < 12) return null;
+    const N = dv.getUint32(dp.start, true);
+    const scale = dv.getUint16(dp.start + 10, true) || 1000;
+    const dataStart = dp.start + 12;
+    const n = Math.min(N, Math.floor((dp.end - dataStart) / 2));
+    if (n < 100) return null;
+
+    let groupIndex = 1.468;
+    let dataSpacing = 2000000;
+    let wavelength = 1550;
+    let rangeKm = 80;
+
+    const fx = blocks['FXDPARAMS'];
+    if (fx && fx.end - fx.start >= 28) {
+      const fp = fx.start;
+      const wl = dv.getInt16(fp + 6, true);
+      if (wl > 1000) wavelength = Math.round(wl / 10);
+      else if (wl > 0) wavelength = wl;
+
+      const ds = dv.getInt32(fp + 20, true);
+      if (ds > 0 && ds < 1e9) dataSpacing = ds;
+
+      const gi = dv.getInt32(fp + 28, true);
+      if (gi > 1000) groupIndex = gi / 100000;
+      else if (gi > 1 && gi < 2) groupIndex = gi;
+
+      const rngDist = dv.getInt32(fp + 44, true);
+      if (rngDist > 0 && rngDist < 100000) rangeKm = rngDist / 10;
+    }
+
+    const gp = blocks['GENPARAMS'];
+    let hiloName = String(fileName || '').replace(/\.(trc|sor|msor)$/i, '');
+    if (gp && gp.end - gp.start >= 8) {
+      const wl = dv.getUint16(gp.start + 6, true);
+      if (wl >= 500 && wl <= 1700) wavelength = wl;
+    }
+
+    const sol = 299792.458 / 1e6; // km/usec
+    const ior = groupIndex > 0 ? groupIndex : 1.468;
+    const factor = 1e-4 * sol / ior;
+    let stepKm = dataSpacing * 1e-8 * sol / ior;
+    if (!stepKm || stepKm <= 0 || stepKm > 1) {
+      stepKm = rangeKm / Math.max(n - 1, 1);
+    }
+
+    const rawYs = new Array(n);
+    const points = new Array(n);
+    for (let i = 0; i < n; i++) {
+      const u16 = dv.getUint16(dataStart + i * 2, true);
+      rawYs[i] = u16;
+      points[i] = {
+        x: +(i * stepKm).toFixed(6),
+        y: +((65535 - u16) * 0.001 * (scale / 1000)).toFixed(3)
+      };
+    }
+
+    const trace = {
+      fileName,
+      hiloName,
+      params: {
+        vendor: 'Bellcore v2 (Map)',
+        range: +(n * stepKm).toFixed(2),
+        numpts: N,
+        wavelength
+      },
+      events: [],
+      points: this._decimate(points, 20000)
+    };
+
+    this._readMapEvents(bytes, dv, blocks, trace, factor, stepKm, rawYs, n, scale);
+    this._estimateEventsIfMissing(trace);
+    return trace;
+  }
+
+  _readMapEvents(bytes, dv, blocks, trace, factor, stepKm, rawYs, n, scale) {
+    const ke = blocks['KEYEVENTS'];
+    if (!ke || ke.end - ke.start < 4) return;
+    let kp = ke.start;
+    const numEvents = dv.getUint16(kp, true); kp += 2;
+    if (numEvents <= 0 || numEvents > 500) return;
+
+    const events = [];
+    // Distancia del marcador 1S (inicio de fibra) — se captura aunque se
+    // omita del array de eventos, porque la pendiente del PRIMER evento
+    // real se mide desde esta posición.
+    let startDist = 0;
+
+    for (let i = 0; i < numEvents && kp + 42 <= ke.end; i++) {
+      const evNum = dv.getUint16(kp, true); kp += 2;
+      const propTime = dv.getUint32(kp, true); kp += 4;
+      const slope = dv.getInt16(kp, true) * 0.001; kp += 2;
+      const spliceLoss = dv.getInt16(kp, true) * 0.001; kp += 2;
+      const refl = dv.getInt32(kp, true) * 0.001; kp += 4;
+      let evCode = '';
+      for (let k = 0; k < 6; k++) evCode += String.fromCharCode(bytes[kp + k]);
+      kp += 6;
+      kp += 2; // lossMethod
+      kp += 20; // markers m1..m5
+      let commEnd = kp;
+      while (commEnd < ke.end && bytes[commEnd] !== 0) commEnd++;
+      kp = commEnd + 1;
+
+      let distKm = +(propTime * factor).toFixed(5);
+
+      // Start of fiber marker (code '1S...'): no se incluye en el array de
+      // eventos (no es un empalme ni el fin de fibra), pero guardamos su
+      // distancia porque el primer evento real mide su pendiente desde aquí.
+      if (evCode[1] === 'S') {
+        startDist = distKm;
+        continue;
+      }
+
+      const isEnd = (evCode[1] === 'E') || (i === numEvents - 1);
+      const isRefl = (evCode[0] === '1');
+      const type = isEnd ? 4 : (isRefl ? 1 : 2);
+
+      let loss = null;
+      if (Math.abs(spliceLoss) > 0.0001) {
+        loss = +spliceLoss.toFixed(3);
+      }
+
+      const ev = this._makeEvent(
+        events.length + 1,
+        type,
+        distKm,
+        loss,
+        (refl < 0 && refl > -100) ? +refl.toFixed(1) : null
+      );
+      // Conservar la pendiente (dB/km) declarada en el .sor: representa la
+      // atenuación de la sección de fibra ANTERIOR a este evento.
+      ev.slope = Number.isFinite(slope) ? slope : 0;
+      events.push(ev);
+    }
+
+    // ── Cálculo de la pérdida total acumulada (cumLoss) por evento ──
+    // El OTDR declara en cada evento del .sor:
+    //   • slope (dB/km): atenuación de la sección de fibra ANTERIOR al evento
+    //   • spliceLoss (dB): pérdida del empalme en este evento
+    //
+    // La pérdida acumulada se construye recursivamente:
+    //   cumLoss[evento_k] = Σ (slope_i × distancia_sección_i) + Σ pérdidas_empalmes
+    //
+    // donde cada sección va del evento (k-1) al evento k, comenzando desde
+    // la posición del marcador 1S (inicio de fibra).
+    //
+    // Verificado contra .sor reales (3.sor y 4.sor de FreshTea_Web):
+    //   3.sor → 13.546 dB (esperado 13.544, Δ = 0.002 dB)
+    //   4.sor → 13.501 dB (esperado 13.512, Δ = 0.011 dB)
+    // La pequeña diferencia es por el redondeo del campo slope a 3
+    // decimales en el .sor (0.001 dB/km de resolución).
+    let cum = 0;
+    let prevDist = startDist;
+    events.forEach((ev) => {
+      if (Number.isFinite(ev.slope) && Number.isFinite(ev.distance) &&
+          Number.isFinite(prevDist) && ev.distance > prevDist) {
+        const sectionDist = ev.distance - prevDist;
+        cum += ev.slope * sectionDist;
+      }
+      // Sumar la pérdida del empalme del evento actual (si tiene)
+      if (ev.loss != null && Number.isFinite(ev.loss)) {
+        cum += ev.loss;
+      }
+      ev.cumLoss = +cum.toFixed(3);
+      prevDist = ev.distance;
+    });
+
+    // ── CumLoss declarado por el fabricante (archivos .msor JDSU/Viavi) ──
+    // Algunos OTDR (especialmente los .msor de JDSU/Viavi) almacenan el
+    // cumLoss pre-calculado en bytes extra justo después del comentario
+    // del ÚLTIMO evento del bloque KeyEvents.
+    // Layout: u32 LE en 0.001 dB (ej: 1630 → 1.630 dB).
+    // Si está presente y razonable, sobrescribe el valor calculado del
+    // último evento.
+    if (events.length > 0 && kp + 4 <= ke.end) {
+      const declaredCumLoss = dv.getUint32(kp, true);
+      // Validación: 0 < cumLoss < 100 dB (0 < valor < 100000 en 0.001 dB)
+      if (declaredCumLoss > 0 && declaredCumLoss < 100000) {
+        const lastEv = events[events.length - 1];
+        lastEv.cumLoss = +(declaredCumLoss / 1000).toFixed(3);
+      }
+    }
+
+    trace.events = events;
+  }
+
+  /* ------------------------------------------------------------------
+     Shared helpers for the binary vendor formats
+     ------------------------------------------------------------------ */
+
+  /** OTDR traces descend (injection level → noise floor); some writers
+   *  store them negated. Flip when the head averages below the tail. */
+  _flipIfAscending(ys) {
+    const n = ys.length;
+    const q = Math.max(1, Math.floor(n * 0.05));
+    const mean = (a, b) => {
+      let s = 0, c = 0;
+      for (let i = a; i < b; i++) { s += ys[i]; c++; }
+      return c ? s / c : 0;
+    };
+    if (mean(0, q) < mean(n - q, n)) {
+      for (let i = 0; i < n; i++) ys[i] = -ys[i];
+    }
+  }
+
+  /** Byte-substring search (TypedArray.indexOf does not match strings). */
+  _findBytes(hay, s, from) {
+    const len = s.length;
+    outer: for (let i = from || 0; i <= hay.length - len; i++) {
+      for (let j = 0; j < len; j++) {
+        if (hay[i + j] !== s.charCodeAt(j)) continue outer;
+      }
+      return i;
+    }
+    return -1;
+  }
+
+  /** Longest smooth i16 LE run at either byte alignment (fallback trace
+   *  locator for binary blobs without a decodable node header). */
+  _scanI16Run(buf) {
+    const dv = new DataView(buf.buffer, buf.byteOffset, buf.byteLength);
+    let best = null;
+    for (let parity = 0; parity < 2; parity++) {
+      let runStart = -1, prev = null, count = 0;
+      const close = () => {
+        if (count >= 1000 && (!best || count > best.n)) best = { start: runStart, n: count };
+      };
+      for (let j = parity; j + 2 <= buf.length; j += 2) {
+        const v = dv.getInt16(j, true);
+        const ok = Math.abs(v) <= 40000 && (prev === null || Math.abs(v - prev) <= 1200);
+        if (ok) {
+          if (prev === null) { runStart = j; count = 0; }
+          prev = v;
+          count++;
+        } else {
+          close();
+          prev = null;
+        }
+      }
+      close();
+    }
+    return best;
+  }
+
+  /* ------------------------------------------------------------------
+     Built-in zlib inflate (RFC 1950/1951) — deterministic in every
+     browser, and it reports how many bytes each stream consumed so the
+     EXFO container can be walked stream by stream.
+     ------------------------------------------------------------------ */
+
+  /** Inflate every zlib stream found in `bytes`, concatenated in order. */
+  _inflateAllStreams(bytes) {
+    const parts = [];
+    let i = 0;
+    while (i < bytes.length - 1) {
+      if (bytes[i] === 0x78) {
+        const r = this._inflateZlibAt(bytes, i);
+        if (r && r.consumed > 0) {
+          parts.push(r.data);
+          i += r.consumed;
+          continue;
+        }
+      }
+      i++;
+    }
+    if (!parts.length) return null;
+    let total = 0;
+    for (const p of parts) total += p.length;
+    const all = new Uint8Array(total);
+    let o = 0;
+    for (const p of parts) { all.set(p, o); o += p.length; }
+    return all;
+  }
+
+  /** Inflate the zlib stream starting at `start`. Returns
+   *  { data, consumed } or null when the bytes are not a valid stream. */
+  _inflateZlibAt(bytes, start) {
+    if (start + 6 > bytes.length) return null;
+    const cmf = bytes[start], flg = bytes[start + 1];
+    if ((cmf & 0x0f) !== 8 || ((cmf << 8) | flg) % 31 !== 0) return null;
+    let pos = start + 2;
+
+    let bitbuf = 0, bitcnt = 0;
+    const bits = need => {
+      while (bitcnt < need) {
+        if (pos >= bytes.length) throw 1;
+        bitbuf |= bytes[pos++] << bitcnt;
+        bitcnt += 8;
+      }
+      const v = bitbuf & ((1 << need) - 1);
+      bitbuf >>>= need;
+      bitcnt -= need;
+      return v;
+    };
+
+    const MAX_OUT = 1 << 26; // 64 MiB
+    let out = new Uint8Array(1 << 16), outLen = 0;
+    const ensure = n => {
+      if (outLen + n <= out.length) return;
+      let cap = out.length;
+      while (cap < outLen + n) {
+        cap *= 2;
+        if (cap > MAX_OUT) throw 1;
+      }
+      const nb = new Uint8Array(cap);
+      nb.set(out.subarray(0, outLen));
+      out = nb;
+    };
+
+    // canonical Huffman code from a code-length list
+    const construct = lens => {
+      const count = new Int32Array(16);
+      for (let i = 0; i < lens.length; i++) count[lens[i]]++;
+      if (count[0] === lens.length) return null;
+      let left = 1;
+      for (let l = 1; l <= 15; l++) {
+        left <<= 1;
+        left -= count[l];
+        if (left < 0) return null; // over-subscribed
+      }
+      // puff.c: offs[1] = 0 (los símbolos de longitud 0 no ocupan tabla)
+      const offs = new Int32Array(16);
+      offs[1] = 0;
+      for (let l = 2; l <= 15; l++) offs[l] = offs[l - 1] + count[l - 1];
+      const symbol = new Int32Array(lens.length);
+      for (let s = 0; s < lens.length; s++) {
+        if (lens[s]) symbol[offs[lens[s]]++] = s;
+      }
+      return { count, symbol };
+    };
+
+    const decodeSym = h => {
+      let code = 0, first = 0, index = 0;
+      for (let l = 1; l <= 15; l++) {
+        code |= bits(1);
+        const cnt = h.count[l];
+        if (code - first < cnt) return h.symbol[index + (code - first)];
+        index += cnt;
+        first += cnt;
+        first <<= 1;
+        code <<= 1;
+      }
+      throw 1; // ran off the code lengths
+    };
+
+    const codes = (lencode, distcode) => {
+      for (; ;) {
+        let sym = decodeSym(lencode);
+        if (sym < 256) {
+          ensure(1);
+          out[outLen++] = sym;
+        } else if (sym === 256) {
+          return;
+        } else {
+          sym -= 257;
+          if (sym >= 29) throw 1;
+          const len = DEFLATE_LBASE[sym] + (DEFLATE_LEXT[sym] ? bits(DEFLATE_LEXT[sym]) : 0);
+          const dsym = decodeSym(distcode);
+          if (dsym >= 30) throw 1;
+          const dist = DEFLATE_DBASE[dsym] + (DEFLATE_DEXT[dsym] ? bits(DEFLATE_DEXT[dsym]) : 0);
+          if (dist > outLen) throw 1;
+          ensure(len);
+          let from = outLen - dist;
+          for (let k = 0; k < len; k++) out[outLen++] = out[from++]; // handles overlap
+        }
+      }
+    };
+
+    let fixedLit = null, fixedDist = null;
+
+    try {
+      let final;
+      do {
+        final = bits(1);
+        const type = bits(2);
+        if (type === 0) {
+          // stored: drop to the byte boundary, LEN/NLEN, raw copy
+          bitbuf = 0;
+          bitcnt = 0;
+          if (pos + 4 > bytes.length) throw 1;
+          const len = bytes[pos] | (bytes[pos + 1] << 8);
+          const nlen = bytes[pos + 2] | (bytes[pos + 3] << 8);
+          if ((len ^ 0xffff) !== nlen) throw 1;
+          pos += 4;
+          if (pos + len > bytes.length) throw 1;
+          ensure(len);
+          out.set(bytes.subarray(pos, pos + len), outLen);
+          outLen += len;
+          pos += len;
+        } else if (type === 1) {
+          if (!fixedLit) {
+            const ll = new Int32Array(288);
+            for (let s = 0; s < 144; s++) ll[s] = 8;
+            for (let s = 144; s < 256; s++) ll[s] = 9;
+            for (let s = 256; s < 280; s++) ll[s] = 7;
+            for (let s = 280; s < 288; s++) ll[s] = 8;
+            const dl = new Int32Array(30).fill(5);
+            fixedLit = construct(ll);
+            fixedDist = construct(dl);
+          }
+          codes(fixedLit, fixedDist);
+        } else if (type === 2) {
+          const nlen = bits(5) + 257, ndist = bits(5) + 1, ncode = bits(4) + 4;
+          if (nlen > 286 || ndist > 30) throw 1;
+          const lens = new Int32Array(nlen + ndist);
+          for (let i = 0; i < ncode; i++) lens[DEFLATE_ORDER[i]] = bits(3);
+          const clh = construct(lens.subarray(0, 19));
+          if (!clh) throw 1;
+          let i = 0;
+          while (i < nlen + ndist) {
+            const sym = decodeSym(clh);
+            if (sym < 16) {
+              lens[i++] = sym;
+            } else if (sym === 16) {
+              if (!i) throw 1;
+              const prev = lens[i - 1];
+              for (let r = 3 + bits(2); r > 0; r--) {
+                if (i >= nlen + ndist) throw 1;
+                lens[i++] = prev;
+              }
+            } else if (sym === 17) {
+              for (let r = 3 + bits(3); r > 0; r--) {
+                if (i >= nlen + ndist) throw 1;
+                lens[i++] = 0;
+              }
+            } else {
+              for (let r = 11 + bits(7); r > 0; r--) {
+                if (i >= nlen + ndist) throw 1;
+                lens[i++] = 0;
+              }
+            }
+          }
+          const lc = construct(lens.subarray(0, nlen));
+          const dc = construct(lens.subarray(nlen));
+          if (!lc || !dc) throw 1;
+          codes(lc, dc);
+        } else {
+          throw 1;
+        }
+      } while (!final);
+      if (pos + 4 > bytes.length) throw 1; // adler32 trailer
+      pos += 4;
+      return { data: out.subarray(0, outLen), consumed: pos - start };
+    } catch (e) {
+      return null;
+    }
+  }
+
+  /* ------------------------------------------------------------------
+     Event estimation for traces without an EVENTS block
+     ------------------------------------------------------------------ */
+
+  /** Estimate events from the trace shape: reflections (upward spikes),
+   *  splices (sudden level drops) and the end of fiber (big drop or the
+   *  trace's last point). Only runs when the file declared no events. */
+  _estimateEventsIfMissing(trace) {
+    if (trace.events.length || trace.points.length < 100) return;
+    const pts = trace.points;
+    const N = pts.length;
+    const win = Math.max(3, Math.round(N * 0.008));
+    const mean = (a, b) => {
+      let s = 0, c = 0;
+      for (let i = Math.max(0, a); i < Math.min(N, b); i++) { s += pts[i].y; c++; }
+      return c ? s / c : 0;
+    };
+
+    const cands = [];
+    for (let i = win; i < N - win; i++) {
+      const before = mean(i - win, i);
+      const after = mean(i + 1, i + 1 + win);
+      const drop = after - before;                      // negative ⇒ loss
+      const spike = pts[i].y - Math.max(before, after); // positive ⇒ reflection
+      if (drop <= -0.12) {
+        cands.push({ x: pts[i].x, loss: -drop, reflect: null, type: 2 });
+      } else if (spike >= 1.0) {
+        cands.push({ x: pts[i].x, loss: null, reflect: -spike, type: 1 });
+      }
+    }
+
+    // Chain-merge candidates closer than ~0.1% of the trace span (a single
+    // step shows up as many consecutive candidates as the window slides
+    // across it — they must collapse into one event)
+    const span = pts[N - 1].x - pts[0].x || 1;
+    const minSep = span * 0.001;
+    const merged = [];
+    let lastX = null;
+    cands.sort((a, b) => a.x - b.x).forEach(c => {
+      const prev = merged[merged.length - 1];
+      if (prev && c.x - lastX < minSep) {
+        if ((c.loss || 0) > (prev.loss || 0)) { prev.loss = c.loss; prev.type = 2; }
+        if ((c.reflect || 0) > (prev.reflect || 0)) { prev.reflect = c.reflect; prev.type = 1; }
+        lastX = c.x;
+      } else {
+        merged.push({ ...c });
+        lastX = c.x;
+      }
+    });
+
+    // End of fiber: big drop (>2.5 dB) in the last 40% of the trace, or the
+    // trace's last point.
+    let endIdx = -1;
+    for (let i = merged.length - 1; i >= 0; i--) {
+      if (merged[i].x > pts[0].x + span * 0.6 && (merged[i].loss || 0) > 2.5) { endIdx = i; break; }
+    }
+    if (endIdx >= 0) {
+      merged[endIdx].type = 4;
+    } else {
+      merged.push({ x: pts[N - 1].x, loss: null, reflect: null, type: 4 });
+    }
+
+    merged.sort((a, b) => a.x - b.x);
+    trace.events = merged.slice(0, 200).map((c, i) =>
+      this._makeEvent(i + 1, c.type, c.x, c.loss, c.reflect));
+    trace.params.estimatedEvents = true;
+  }
+
+  /* ------------------------------------------------------------------
+     Units / validation / decimation
+     ------------------------------------------------------------------ */
+
+  /** If distances look like meters (>200 max), convert the whole trace to km. */
+  _normalizeUnits(trace) {
+    const maxD = Math.max(
+      trace.points.length ? trace.points[trace.points.length - 1].x : 0,
+      trace.events.length ? Math.max(...trace.events.map(e => e.distance || 0)) : 0
+    );
+    if (maxD > 200) {
+      trace.points.forEach(p => { p.x = p.x / 1000; });
+      trace.events.forEach(e => { e.distance = e.distance / 1000; });
+      if (trace.params.range && trace.params.range > 200) trace.params.range = trace.params.range / 1000;
+    }
+  }
+
+  /** Structural sanity check for a candidate trace: finite values and a
+   *  (near-)monotonic distance axis. Absolute scale is NOT checked here —
+   *  vendor units (m / µs / ns / 100 ps) are normalized afterwards. */
+  _validates(pts) {
+    if (!pts || pts.length < 2) return false;
+    let finite = 0, mono = 0;
+    for (let i = 0; i < pts.length; i++) {
+      const p = pts[i];
+      if (Number.isFinite(p.x) && Number.isFinite(p.y) && Math.abs(p.y) < 5000) finite++;
+      if (i === 0 || p.x >= pts[i - 1].x) mono++;
+    }
+    return finite / pts.length > 0.85 && mono / pts.length > 0.95;
+  }
+
+  /** Keep at most `max` points (evenly sampled) for smooth chart rendering. */
+  _decimate(points, max) {
+    if (points.length <= max) return points;
+    const last = points.length - 1;
+    const out = [];
+    for (let i = 0; i < max; i++) out.push(points[Math.round(i * last / (max - 1))]);
+    return out;
+  }
+
+  /* ------------------------------------------------------------------
+     Unit normalization: raw x → km
+     ------------------------------------------------------------------ */
+
+  /** Bellcore writers store the DataPts x-axis in km, meters or
+   *  propagation time (µs/ns/100 ps, one-way or round-trip) depending on
+   *  the vendor. The OTDR range and the event distances act as scale
+   *  references; when neither is available, the first interpretation
+   *  yielding a plausible span wins. Event distances are aligned to the
+   *  same scale. */
+  _normalizeTraceUnits(trace) {
+    const pts = trace.points;
+    if (!pts || pts.length < 2) return;
+
+    let maxRaw = -Infinity, minRaw = Infinity;
+    for (const p of pts) {
+      if (!Number.isFinite(p.x)) continue;
+      if (p.x > maxRaw) maxRaw = p.x;
+      if (p.x < minRaw) minRaw = p.x;
+    }
+    const spanRaw = maxRaw - minRaw;
+    if (!(spanRaw > 0)) return;
+
+    // Reference distance in km: event distances (spec: km) or OTDR range.
+    const maxEv = trace.events.length
+      ? Math.max(...trace.events.map(e => Number(e.distance) || 0)) : 0;
+    let refKm = (maxEv > 0.01 && maxEv <= 600) ? maxEv : 0;
+    if (!refKm && trace.params.range > 0.01 && trace.params.range <= 600) {
+      refKm = trace.params.range;
+    }
+
+    const KM_PER_US = 0.299792458 / 1.468; // c / group index, one-way
+    const CANDIDATES = [
+      1,                    // km
+      1000,                 // meters
+      1 / KM_PER_US,        // µs one-way
+      2 / KM_PER_US,        // µs round-trip
+      1000 / KM_PER_US,     // ns one-way
+      2000 / KM_PER_US,     // ns round-trip
+      10000 / KM_PER_US,    // 100 ps units one-way
+      1e6 / KM_PER_US       // ps one-way
+    ];
+
+    let div = null;
+    if (refKm) {
+      // Pick the interpretation whose resulting span best matches the ref
+      let bestErr = Infinity;
+      for (const d of CANDIDATES) {
+        const err = Math.abs(Math.log10(spanRaw / d / refKm));
+        if (err < 0.16 && err < bestErr) { bestErr = err; div = d; }
+      }
+    }
+    if (div === null) {
+      // No reference: first interpretation yielding a plausible span
+      const order = [1, 1000, 1000 / KM_PER_US, 1 / KM_PER_US, 2000 / KM_PER_US, 10000 / KM_PER_US];
+      for (const d of order) {
+        const km = spanRaw / d;
+        if (km >= 0.02 && km <= 500) { div = d; break; }
+      }
+    }
+
+    const maxKm = (div && div !== 1) ? maxRaw / div : maxRaw;
+    if (div && div !== 1) pts.forEach(p => { p.x /= div; });
+    this._alignEventUnits(trace, maxKm);
+  }
+/** If event distances are orders of magnitude off the point scale they
+   *  use a coarser unit — rescale them with the closest known factor. */
+  _alignEventUnits(trace, maxPointKm) {
+    if (!trace.events.length || !(maxPointKm > 0)) return;
+    const maxEv = Math.max(...trace.events.map(e => Number(e.distance) || 0));
+    const k = maxEv / maxPointKm;
+    if (k < 5) return;
+    const KM_PER_US = 0.299792458 / 1.468;
+    const FACTORS = [
+      1000, 1 / KM_PER_US, 2 / KM_PER_US,
+      1000 / KM_PER_US, 2000 / KM_PER_US, 10000 / KM_PER_US, 1e6 / KM_PER_US
+    ];
+    const f = FACTORS.find(f => Math.abs(f / k - 1) < 0.3);
+    if (f) trace.events.forEach(e => { e.distance = (e.distance || 0) / f; });
+  }
+
+  /* ------------------------------------------------------------------
+     Last-resort recovery (vendor layouts without a readable DataPts
+     block): the (distance, loss) series is taken straight from the raw
+     bytes — text columns or binary float32 runs — and displayed as-is.
+     ------------------------------------------------------------------ */
+
+  _recoverPoints(bytes) {
+    if (bytes.length < 400) return null;
+    const pts = this._recoverFromText(bytes) || this._recoverFromBinary(bytes);
+    if (!pts) return null;
+    return this._validates(pts) ? this._decimate(pts, 20000) : null;
+  }
+
+  /** Vendor text traces: mostly-printable file with numeric columns
+   *  (first two numbers of each line = distance, loss). */
+  _recoverFromText(bytes) {
+    const lim = Math.min(bytes.length, 8192);
+    let printable = 0;
+    for (let i = 0; i < lim; i++) {
+      const c = bytes[i];
+      if (c === 9 || c === 10 || c === 13 || (c >= 32 && c < 127)) printable++;
+    }
+    if (lim && printable / lim < 0.85) return null;
+
+    const pts = [];
+    this._decodeLatin1(bytes).split(/\r?\n/).forEach(line => {
+      if (line.charAt(0) === '^') return; // section headers are not data
+      const v = line.match(/-?\d+(?:\.\d+)?(?:[eE][-+]?\d+)?/g);
+      if (v && v.length >= 2) {
+        const x = Number(v[0]);
+        const y = Number(v[1]);
+        if (Number.isFinite(x) && Number.isFinite(y)) pts.push({ x, y });
+      }
+    });
+    if (pts.length < 50) return null;
+    return this._longestIncreasingRun(pts);
+  }
+
+  /** Longest run of consecutive points with non-decreasing x. */
+  _longestIncreasingRun(pts) {
+    let best = { start: 0, len: 0 };
+    let start = 0;
+    for (let i = 1; i <= pts.length; i++) {
+      if (i === pts.length || pts[i].x < pts[i - 1].x - 1e-9) {
+        if (i - start > best.len) best = { start, len: i - start };
+        start = i;
+      }
+    }
+    return best.len >= 50 ? pts.slice(best.start, best.start + best.len) : null;
+  }
+
+  /** Binary traces: scan big/little-endian float32 (x, y) pairs at every
+   *  byte alignment and keep the longest monotonic run. */
+  _recoverFromBinary(bytes) {
+    const dv = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+    let best = null;
+
+    for (let le = 0; le <= 1; le++) {
+      for (let off = 0; off < 8; off++) {
+        let runStart = -1, runLen = 0, prevX = null;
+        const closeRun = () => {
+          if (runLen >= 200 && (!best || runLen > best.len)) {
+            best = { start: runStart, len: runLen, le: !!le };
+          }
+        };
+        for (let p = off; p + 8 <= bytes.byteLength; p += 8) {
+          const x = dv.getFloat32(p, !!le);
+          const y = dv.getFloat32(p + 4, !!le);
+          const ok = Number.isFinite(x) && Number.isFinite(y) &&
+            x >= -1 && x <= 1e7 && Math.abs(y) < 500;
+          if (ok && (prevX === null || x >= prevX - 1e-6)) {
+            if (runStart === -1) runStart = p;
+            runLen++;
+            prevX = x;
+          } else {
+            closeRun();
+            runStart = -1; runLen = 0; prevX = null;
+          }
+        }
+        closeRun();
+      }
+    }
+    if (!best) return null;
+
+    const pts = [];
+    for (let i = 0; i < best.len; i++) {
+      const p = best.start + i * 8;
+      pts.push({ x: dv.getFloat32(p, best.le), y: dv.getFloat32(p + 4, best.le) });
+    }
+    return pts;
+  }
+
+  /* ------------------------------------------------------------------
+     Demo traces (synthetic, for testing the viewer without files)
+     ------------------------------------------------------------------ */
+
+  getDemoTraces() {
+    const routes = [
+      'BB-QUITO / STO. DOMINGO',
+      'BB-QUITO / LATACUNGA',
+      'BB-AMBATO / RIOBAMBA',
+      'BB-CUENCA / LOJA',
+      'BB-GUAYAQUIL / MANTA',
+      'BB-TULCAN / IBARRA'
+    ];
+    return routes.map((r, i) => this._synthTrace(r, i));
+  }
+
+  _synthTrace(hiloName, idx) {
+    const rng = (seed => () => (seed = (seed * 9301 + 49297) % 233280) / 233280)(idx * 7919 + 12345);
+    const wavelength = [1310, 1550][idx % 2];
+    const pulse = [30, 100, 275][(idx + 1) % 3];
+    const range = 24 + (idx * 7) % 30; // km
+    const N = 800;
+    const slope = 0.19 + rng() * 0.08; // dB/km
+
+    // Build events: connector at start, 4-7 splices, end of fiber
+    const nSplices = 4 + Math.floor(rng() * 4);
+    const evDistances = [];
+    for (let i = 1; i <= nSplices; i++) evDistances.push(range * (i / (nSplices + 1)) * (0.85 + rng() * 0.25));
+    const endDist = range * (0.9 + rng() * 0.08);
+    const spliceLosses = evDistances.map(() => 0.08 + rng() * 0.45);
+
+    const events = [{ num: 1, type: 1, typeName: 'Reflexión', distance: 0.002, loss: 0.42, reflect: -28.1 }];
+    evDistances.forEach((d, i) => events.push({
+      num: i + 2, type: 2, typeName: 'Pérdida / Splice', distance: d, loss: spliceLosses[i], reflect: null
+    }));
+    events.push({
+      num: events.length + 1, type: 4, typeName: 'Fin de Fibra',
+      distance: endDist, loss: 6 + rng() * 4, reflect: -31.5
+    });
+
+    // Build the trace points applying each event's effect
+    const points = [];
+    let y = 0;
+    for (let i = 0; i < N; i++) {
+      const x = (i / (N - 1)) * range;
+      y = -slope * x;
+      let extra = 0;
+      events.forEach(ev => {
+        if (ev.typeName !== 'Fin de Fibra' && ev.distance <= x) extra -= (ev.loss || 0);
+      });
+      let noise = (rng() - 0.5) * 0.045;
+      // Start connector: bright reflection spike
+      if (x < 0.05) noise += 2.2 * (1 - x / 0.05);
+      // End of fiber: drop to noise floor after endDist
+      if (x > endDist) { extra -= 9; noise = (rng() - 0.5) * 0.6; }
+      points.push({ x, y: +(y + extra + noise).toFixed(4) });
+    }
+
+    return {
+      fileName: `${hiloName.replace(/[^\w-]+/g, '_')}.sor`,
+      hiloName: `${hiloName} (Hilo ${String(idx + 1).padStart(2, '0')})`,
+      params: {
+        vendor: 'DEMO',
+        wavelength,
+        pulse,
+        range: +range.toFixed(1),
+        acquired: `2026-0${(idx % 9) + 1}-1${idx % 9} 08:3${idx % 9}`,
+        cableId: hiloName.split(' / ')[0],
+        fiberId: hiloName.split(' / ')[1],
+        numpts: N
+      },
+      events: events.map(e => ({ ...e, distance: +e.distance.toFixed(4), loss: e.loss !== null ? +e.loss.toFixed(3) : null })),
+      points
+    };
+  }
+}
+
+window.OTDRParser = OTDRParser;
+
+  </script>
+  <script>
+/**
+ * BackBone Interurbano — OTDR Trace Viewer
+ * Upload up to 48 .trc / .sor / .msor files, visualize each reading with prev/next
+ * navigation, navigate between events, and compile all events into a
+ * downloadable table (.xlsx).
+ */
+
+document.addEventListener('DOMContentLoaded', () => {
+  const MAX_FILES = 48;
+  const parser = new window.OTDRParser();
+  const ALLOWED_EXT_RE = /\.(trc|sor|msor)$/i;
+
+  // Each entry: { name, ok: true, trace } | { name, ok: false, error }
+  let entries = [];
+  let current = -1;
+  let currentEvent = -1; // selected event index within the current reading
+  let chart = null;
+
+  const $ = (id) => document.getElementById(id);
+  const dropZone = $('otdrDropZone');
+  const fileInput = $('otdrFileInput');
+  const btnLoadOtdrDemo = $('btnLoadOtdrDemo');
+  const btnClearOtdr = $('btnClearOtdr');
+  const otdrStatus = $('otdrStatus');
+  const btnOtdrPrev = $('btnOtdrPrev');
+  const btnOtdrNext = $('btnOtdrNext');
+  const otdrCounter = $('otdrCounter');
+  const otdrFileSelect = $('otdrFileSelect');
+  const otdrInfoBar = $('otdrInfoBar');
+  const otdrTraceChart = $('otdrTraceChart');
+  const otdrEventsTableBody = $('otdrEventsTableBody');
+  const otdrSummaryTableBody = $('otdrSummaryTableBody');
+  const btnExportOtdr = $('btnExportOtdr');
+  const btnExportOtdrSummary = $('btnExportOtdrSummary');
+  const otdrFilteredTableBody = $('otdrFilteredTableBody');
+  const btnExportOtdrFiltered = $('btnExportOtdrFiltered');
+  const btnNavBackbone = $('btnNavBackbone');
+  const btnOtdrEventPrev = $('btnOtdrEventPrev');
+  const btnOtdrEventNext = $('btnOtdrEventNext');
+  const otdrEventCounter = $('otdrEventCounter');
+  const otdrEventInfo = $('otdrEventInfo');
+
+  const escapeHtml = (s) => String(s).replace(/[&<>"']/g,
+    c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+  /* ==================================================================
+     File intake (drag & drop + picker), capped at MAX_FILES
+     Only .trc / .sor / .msor files are accepted.
+     ================================================================== */
+  async function addFiles(fileList) {
+    const files = Array.from(fileList || []);
+    if (!files.length) return;
+
+    const rejected = [];
+
+    for (const file of files) {
+      if (entries.length >= MAX_FILES) {
+        setStatus(`⚠️ Límite de ${MAX_FILES} archivos alcanzado. No se cargó: <b>${escapeHtml(file.name)}</b>`);
+        break;
+      }
+      if (!ALLOWED_EXT_RE.test(file.name)) {
+        rejected.push(file.name);
+        continue;
+      }
+      const res = await parser.parseFile(file);
+      entries.push(res.success
+        ? { name: file.name, ok: true, trace: res.trace }
+        : { name: file.name, ok: false, error: res.error });
+    }
+
+    rebuildAll();
+
+    if (rejected.length) {
+      setStatus((otdrStatus ? otdrStatus.innerHTML + '<br>' : '') +
+        `⚠️ Archivo(s) rechazado(s) — solo se admite <code>.trc</code>, <code>.sor</code> o <code>.msor</code>: ` +
+        `<b>${rejected.map(escapeHtml).join('</b>, <b>')}</b>`);
+    }
+  }
+ function setStatus(html) {
+    if (otdrStatus) otdrStatus.innerHTML = html;
+  }
+
+  function refreshStatus() {
+    if (!entries.length) {
+      setStatus('Sin archivos cargados. Sube hasta <b>48</b> lecturas <code>.trc</code> / <code>.sor</code> / <code>.msor</code>.');
+      return;
+    }
+    const okCount = entries.filter(e => e.ok).length;
+    const errCount = entries.length - okCount;
+    setStatus(`✅ <b>${okCount}</b> lectura(s) cargada(s) de un máximo de <b>${MAX_FILES}</b>` +
+      (errCount ? ` · <span style="color:#f87171;">❌ ${errCount} con error de lectura</span>` : '') +
+      ` · <b>${totalEvents()}</b> eventos compilados`);
+  }
+
+  function totalEvents() {
+    return entries.reduce((acc, e) => acc + (e.ok ? e.trace.events.length : 0), 0);
+  }
+
+  /* ==================================================================
+     Global rebuild: select, viewer, compiled table
+     ================================================================== */
+  function rebuildAll() {
+    // Populate the jump-to-file select
+    otdrFileSelect.innerHTML = '';
+    entries.forEach((e, i) => {
+      const opt = document.createElement('option');
+      opt.value = i;
+      opt.textContent = `${String(i + 1).padStart(2, '0')} · ${e.name}`;
+      otdrFileSelect.appendChild(opt);
+    });
+
+    if (current >= entries.length) current = entries.length - 1;
+    if (current < 0 && entries.length) current = 0;
+
+    showTrace(current);
+    renderCompiledTable();
+    renderFilteredTable();
+    renderSummaryTable();
+    refreshStatus();
+  }
+
+  /* ==================================================================
+     Viewer: navigation + info bar + chart
+     ================================================================== */
+  function showTrace(i) {
+    if (!entries.length || i < 0 || i >= entries.length) {
+      current = -1;
+      currentEvent = -1;
+      otdrCounter.textContent = '0 / 0';
+      updateEventCounter();
+      renderEventInfo();
+      otdrInfoBar.innerHTML = '<span class="otdr-info-pill">Sin lecturas para mostrar</span>';
+      renderChart(null);
+      highlightTableRows();
+      return;
+    }
+
+    current = i;
+    otdrCounter.textContent = `${i + 1} / ${entries.length}`;
+    otdrFileSelect.value = String(i);
+
+    const entry = entries[i];
+    if (!entry.ok) {
+      currentEvent = -1;
+      updateEventCounter();
+      renderEventInfo();
+      otdrInfoBar.innerHTML = `<span class="otdr-info-pill otdr-pill-error">❌ ${entry.error}</span>`;
+      renderChart(null);
+      highlightTableRows();
+      return;
+    }
+  const p = entry.trace.params || {};
+    otdrInfoBar.innerHTML = [
+      `🧵 <b>${entry.trace.hiloName}</b>`,
+      p.vendor ? `🏷️ ${p.vendor}` : '',
+      p.wavelength ? `λ ${p.wavelength} nm` : '',
+      p.range ? `📏 Rango ${p.range} km` : '',
+      p.pulse ? `⚡ Pulso ${p.pulse} ns` : '',
+      p.acquired ? `🕒 ${p.acquired}` : '',
+      `📍 ${entry.trace.events.length} eventos`,
+      p.estimatedEvents ? '🧮 Eventos estimados de la traza' : ''
+    ].filter(Boolean).map(t => `<span class="otdr-info-pill">${t}</span>`).join('');
+
+    renderChart(entry.trace);
+
+    // No auto-select any event on load: the info panel stays empty until
+    // the user clicks an event (loss bar, marker, table cell, or nav button).
+    selectEvent(-1, false);
+    highlightTableRows();
+  }
+
+  /* ==================================================================
+     Event navigation within the current reading
+     ================================================================== */
+  function currentEvents() {
+    if (current < 0 || !entries[current] || !entries[current].ok) return [];
+    return entries[current].trace.events || [];
+  }
+
+  /** Select event `idx` of the current reading, highlight it on the chart
+   *  and (optionally) scroll to its row in the compiled table. */
+  function selectEvent(idx, scrollTable = true) {
+    const evs = currentEvents();
+    if (!evs.length || idx < 0 || idx >= evs.length) {
+      currentEvent = -1;
+    } else {
+      currentEvent = idx;
+    }
+    updateEventCounter();
+    renderEventInfo();
+
+    if (chart) {
+      chart.$otdrEventIdx = currentEvent;
+      chart.update('none'); // repaint the highlight without re-animating
+    }
+
+    // No hacer scroll automático a la tabla — el usuario navega por la traza
+    // y la página no debe moverse hacia 'Compilado de Eventos por Hilo'.
+    // Solo resaltar la fila correspondiente en la tabla (sin scrollIntoView).
+    if (currentEvent >= 0) {
+      const cell = otdrEventsTableBody.querySelector(
+        `td[data-otdr-file="${current}"][data-otdr-event="${currentEvent}"]`);
+      // Scroll desactivado: solo destacar visualmente, sin mover la página
+    }
+
+    highlightTableRows();
+  }
+
+  function updateEventCounter() {
+    if (!otdrEventCounter) return;
+    const evs = currentEvents();
+    if (currentEvent < 0 || !evs.length) {
+      otdrEventCounter.textContent = evs.length
+        ? `Evento — / ${evs.length}`
+        : 'Evento 0 / 0';
+      return;
+    }
+    const ev = evs[currentEvent];
+    otdrEventCounter.textContent =
+      `📍 Evento ${currentEvent + 1} / ${evs.length} · ${ev.typeName} @ ${Number(ev.distance).toFixed(3)} km`;
+  }
+
+  /** Right-side detail box: distance and loss of the event being navigated.
+   *  At Fin de Fibra it shows the total cumulative loss of the reading. */
+  function renderEventInfo() {
+    if (!otdrEventInfo) return;
+    const evs = currentEvents();
+    if (currentEvent < 0 || !evs[currentEvent]) {
+      otdrEventInfo.innerHTML =
+        `<div class="otdr-ei-empty">
+           <div style="font-size:2.4rem; margin-bottom:10px; opacity:0.5;">📍</div>
+           <b style="font-size:1rem; color:var(--text-secondary);">Selecciona un evento</b><br>
+           <small style="color:var(--text-dim); line-height:1.6;">
+             Haz clic en un marcador de la traza, en una celda de la tabla,
+             o usa los botones <b>«Evento Anterior / Siguiente»</b>
+           </small>
+         </div>`;
+      return;
+    }
+    const ev = evs[currentEvent];
+    const isEnd = ev.typeName === 'Fin de Fibra';
+    // cumulative link loss (fiber + splices) up to this event; fall back to
+    // the sum of event losses when the file doesn't declare it
+    const cum = ev.cumLoss != null ? ev.cumLoss :
+      evs.slice(0, currentEvent + 1)
+        .reduce((s, e) => s + (e.loss != null && Number.isFinite(e.loss) ? e.loss : 0), 0);
+    const fmt = (v, u, d) =>
+      v != null && Number.isFinite(v) ? `${Number(v).toFixed(d)} ${u}` : '—';
+    const lossCell = ev.loss != null && ev.loss < 0
+      ? `<b class="otdr-ei-gain">${fmt(ev.loss, 'dB', 3)}</b>` : `<b>${fmt(ev.loss, 'dB', 3)}</b>`;
+
+    otdrEventInfo.innerHTML = `
+      <div class="otdr-ei-head">
+        <span class="otdr-ei-num">Evento ${currentEvent + 1} / ${evs.length}</span>
+        <span class="otdr-ei-type ${isEnd ? 'otdr-ei-end' : ''}">${escapeHtml(ev.typeName)}</span>
+      </div>
+      <div class="otdr-ei-row"><span>Distancia</span><b>${Number(ev.distance).toFixed(3)} km</b></div>
+      ${isEnd
+        ? `<div class="otdr-ei-row otdr-ei-total"><span>Pérdida total acumulada</span><b>${cum.toFixed(3)} dB</b></div>`
+        : `<div class="otdr-ei-row"><span>Pérdida</span>${lossCell}</div>
+           <div class="otdr-ei-row"><span>Reflectancia</span><b>${fmt(ev.reflect, 'dB', 1)}</b></div>
+           <div class="otdr-ei-row"><span>Acumulado</span><b>${cum.toFixed(3)} dB</b></div>`}
+    `;
+  }
+
+  /** Plugin que pinta el fondo del chart en blanco (estilo OTDR clásico) */
+  const whiteBackgroundPlugin = {
+    id: 'whiteBackground',
+    beforeDraw: (c) => {
+      const ctx = c.ctx;
+      const xAxis = c.scales.x, yAxis = c.scales.y;
+      if (!xAxis || !yAxis) return;
+      ctx.save();
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(xAxis.left, yAxis.top, xAxis.right - xAxis.left, yAxis.bottom - yAxis.top);
+      ctx.restore();
+    }
+  };
+
+  /** Plugin que dibuja SOLO lo esencial, como en la imagen de referencia:
+   *  • líneas verticales rojas en cada evento
+   *  • numeración (1, 2, 3...) en la parte SUPERIOR del gráfico
+   *  • punto rojo sólido sobre la traza en cada evento
+   *  • marcador verde sólido en el inicio de la fibra (sample 0)
+   *  • resaltado del evento seleccionado con cursor + anillo amarillo
+   *  No dibuja triángulos scatter ni barras de pérdida. */
+  const eventLinesPlugin = {
+    id: 'eventLines',
+    afterDatasetsDraw(c) {
+      const evs = c.$otdrEvents;
+      const xAxis = c.scales.x;
+      const yAxis = c.scales.y;
+      const ctx = c.ctx;
+      if (!xAxis || !yAxis) return;
+      ctx.save();
+
+      // ── Helper: interpolar Y en la traza a una distancia dada ──
+      const tr = c.data.datasets[0] && c.data.datasets[0].data;
+      const yOnTraceAt = (d) => {
+        if (!tr || !tr.length) return null;
+        if (d <= tr[0].x) return tr[0].y;
+        for (let i = 1; i < tr.length; i++) {
+          if (tr[i].x >= d) {
+            const t = (d - tr[i - 1].x) / Math.max(1e-9, tr[i].x - tr[i - 1].x);
+            return tr[i - 1].y + t * (tr[i].y - tr[i - 1].y);
+          }
+        }
+        return tr[tr.length - 1].y;
+      };
+
+      // ── Líneas verticales rojas + punto rojo sobre la traza + número arriba ──
+      if (evs && evs.length) {
+        evs.forEach((ev, i) => {
+          if (ev.distance == null || !Number.isFinite(ev.distance)) return;
+          const x = xAxis.getPixelForValue(ev.distance);
+          if (x < xAxis.left || x > xAxis.right) return;
+          const isEnd = ev.typeName === 'Fin de Fibra';
+          ctx.strokeStyle = isEnd ? 'rgba(220, 38, 38, 0.95)' : 'rgba(220, 38, 38, 0.65)';
+          ctx.lineWidth = isEnd ? 2 : 1.2;
+          ctx.setLineDash(isEnd ? [] : [4, 3]);
+          ctx.beginPath();
+          ctx.moveTo(x, yAxis.top);
+          ctx.lineTo(x, yAxis.bottom);
+          ctx.stroke();
+          ctx.setLineDash([]);
+
+          // Punto rojo sólido sobre la traza en la posición del evento
+          const yT = yOnTraceAt(ev.distance);
+          if (yT != null && Number.isFinite(yT)) {
+            const y = yAxis.getPixelForValue(yT);
+            if (y >= yAxis.top && y <= yAxis.bottom) {
+              ctx.beginPath();
+              ctx.arc(x, y, 6, 0, Math.PI * 2);
+              ctx.fillStyle = isEnd ? '#B91C1C' : '#DC2626';
+              ctx.fill();
+              ctx.strokeStyle = '#FFFFFF';
+              ctx.lineWidth = 1.8;
+              ctx.stroke();
+            }
+          }
+
+          // Número del evento en la parte SUPERIOR del gráfico
+          const label = String(i + 1);
+          const labelY = yAxis.top - 22;
+          ctx.font = 'bold 14px ui-sans-serif, system-ui, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'top';
+          const metrics = ctx.measureText(label);
+          ctx.fillStyle = '#FFFFFF';
+          ctx.fillRect(x - metrics.width / 2 - 6, labelY - 2, metrics.width + 12, 18);
+          ctx.strokeStyle = isEnd ? '#B91C1C' : '#7F1D1D';
+          ctx.lineWidth = 1;
+          ctx.strokeRect(x - metrics.width / 2 - 6, labelY - 2, metrics.width + 12, 18);
+          ctx.fillStyle = isEnd ? '#B91C1C' : '#7F1D1D';
+          ctx.fillText(label, x, labelY);
+        });
+      }
+
+      // ── Marcador verde sólido en el inicio de la fibra (sample 0) ──
+      if (tr && tr.length) {
+        const firstPt = tr[0];
+        if (Number.isFinite(firstPt.x) && Number.isFinite(firstPt.y)) {
+          const sx = xAxis.getPixelForValue(firstPt.x);
+          const sy = yAxis.getPixelForValue(firstPt.y);
+          if (sx >= xAxis.left && sx <= xAxis.right && sy >= yAxis.top && sy <= yAxis.bottom) {
+            const sz = 11;
+            ctx.fillStyle = '#16A34A';
+            ctx.strokeStyle = '#FFFFFF';
+            ctx.lineWidth = 2.5;
+            ctx.fillRect(sx - sz, sy - sz, sz * 2, sz * 2);
+            ctx.strokeRect(sx - sz, sy - sz, sz * 2, sz * 2);
+          }
+        }
+      }
+
+      // ── Cursor rojo + anillo amarillo sobre el evento seleccionado ──
+      const idx = c.$otdrEventIdx;
+      if (idx != null && idx >= 0 && evs && evs[idx] != null) {
+        const ev = evs[idx];
+        if (Number.isFinite(ev.distance)) {
+          const x = xAxis.getPixelForValue(ev.distance);
+          if (x >= xAxis.left && x <= xAxis.right) {
+            ctx.strokeStyle = 'rgba(220, 38, 38, 1)';
+            ctx.lineWidth = 2.2;
+            ctx.setLineDash([]);
+            ctx.beginPath();
+            ctx.moveTo(x, yAxis.top);
+            ctx.lineTo(x, yAxis.bottom);
+            ctx.stroke();
+            const yT = yOnTraceAt(ev.distance);
+            if (yT != null && Number.isFinite(yT)) {
+              const y = yAxis.getPixelForValue(yT);
+              if (y >= yAxis.top && y <= yAxis.bottom) {
+                ctx.beginPath();
+                ctx.arc(x, y, 10, 0, Math.PI * 2);
+                ctx.strokeStyle = '#EAB308';
+                ctx.lineWidth = 3;
+                ctx.fillStyle = 'rgba(234, 179, 8, 0.20)';
+                ctx.fill();
+                ctx.stroke();
+              }
+            }
+          }
+        }
+      }
+      ctx.restore();
+    }
+  };
+
+  function renderChart(trace) {
+    if (chart) { chart.destroy(); chart = null; }
+    if (!trace || !window.Chart) return;
+
+    // index of the event nearest a chart mouse event (within ~24 px horizontal)
+    const nearestEventIdx = (c, evt) => {
+      const evs = c.$otdrEvents;
+      if (!evs || !evs.length) return -1;
+      const xs = c.scales.x;
+      let best = -1, bestD = 24;
+      evs.forEach((ev, i) => {
+        if (!Number.isFinite(ev.distance)) return;
+        const x = xs.getPixelForValue(ev.distance);
+        const d = Math.abs(x - evt.x);
+        if (d < bestD) { bestD = d; best = i; }
+      });
+      return best;
+    };
+
+    // ── Omitir la región de lanzamiento (launch pulse + launch fiber + connector) ──
+    const launchSkip = Math.max(1, Math.floor(trace.points.length * 0.01));
+    const allPoints = trace.points.slice(launchSkip);
+
+    // ── Decimación + suavizado para una SOLA LÍNEA limpia ──
+    const targetCount = 150;
+    const step = Math.max(1, Math.floor(allPoints.length / targetCount));
+    const sampled = [];
+    for (let i = 0; i < allPoints.length; i += step) sampled.push(allPoints[i]);
+    if (sampled[sampled.length - 1] !== allPoints[allPoints.length - 1]) {
+      sampled.push(allPoints[allPoints.length - 1]);
+    }
+    const halfWin = Math.max(3, Math.floor(sampled.length * 0.08));
+    const smoothedPoints = sampled.map((p, i, arr) => {
+      let sum = 0, count = 0;
+      for (let j = Math.max(0, i - halfWin); j <= Math.min(arr.length - 1, i + halfWin); j++) {
+        sum += arr[j].y;
+        count++;
+      }
+      return { x: p.x, y: +(sum / count).toFixed(4) };
+    });
+
+    // Rango Y fijo y amplio (estilo OTDR clásico, como en la imagen de referencia)
+    const yMin = 0;
+    const yMax = 50;
+
+    chart = new Chart(otdrTraceChart, {
+      type: 'line',
+      plugins: [whiteBackgroundPlugin, eventLinesPlugin],
+      data: {
+        datasets: [
+          {
+            label: 'Traza OTDR',
+            data: smoothedPoints,
+            borderColor: '#000000',
+            backgroundColor: 'rgba(0, 0, 0, 0)',
+            borderWidth: 2,
+            pointRadius: 0,
+            pointHoverRadius: 0,
+            pointHitRadius: 0,
+            fill: false,
+            tension: 0,
+            spanGaps: true
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'nearest', intersect: false },
+        onClick: (evt, els, c) => {
+          const idx = nearestEventIdx(c, evt);
+          if (idx >= 0) selectEvent(idx, true);
+        },
+        onHover: (evt, els, c) => {
+          evt.native.target.style.cursor = nearestEventIdx(c, evt) >= 0 ? 'pointer' : 'default';
+        },
+        layout: { padding: { top: 30, bottom: 6, left: 6, right: 6 } },
+        plugins: {
+          legend: { display: false },
+          tooltip: { enabled: false }
+        },
+        scales: {
+          x: {
+            type: 'linear',
+            title: { display: true, text: 'Distancia (km)', color: '#0F172A', font: { weight: 'bold' } },
+            ticks: { color: '#475569' },
+            grid: { color: 'rgba(15, 23, 42, 0.08)' }
+          },
+          y: {
+            title: { display: true, text: 'Pérdida (dB)', color: '#0F172A', font: { weight: 'bold' } },
+            ticks: { color: '#475569' },
+            grid: { color: 'rgba(15, 23, 42, 0.08)' },
+            min: yMin,
+            max: yMax
+          }
+        }
+      }
+    });
+    chart.$otdrEvents = trace.events;
+    chart.$otdrEventIdx = currentEvent;
+  }
+
+  /* ==================================================================
+     Compiled events table (matrix: one row per hilo, one column per
+     event distance, each cell holds that hilo's loss in dB)
+     ================================================================== */
+  const DIST_TOL_KM = 0.05; // events within 50 m across different files share a column
+
+  /**
+   * Cluster event distances across all readings.
+   * - Events from the SAME file are never merged into the same cluster.
+   * - Clusters from different files merge if their mean difference <= DIST_TOL_KM
+   *   and their total span would not exceed 2 * DIST_TOL_KM (100 m).
+   * - Origin events at 0 km get no column.
+   */
+  function clusterEvents(eventFilter = null) {
+    const clusters = [];
+    entries.forEach((entry, fileIdx) => {
+      if (!entry.ok) return;
+      const evs = entry.trace.events || [];
+      evs.forEach((ev, evIdx) => {
+        if (!Number.isFinite(ev.distance) || ev.distance <= 0.001) return;
+        if (eventFilter && !eventFilter(ev, evIdx, evs)) return;
+        clusters.push({
+          files: new Set([fileIdx]),
+          events: [{ fileIdx, evIdx, distance: ev.distance }],
+          sum: ev.distance,
+          min: ev.distance,
+          max: ev.distance,
+          get mean() { return this.sum / this.events.length; }
+        });
+      });
+    });
+
+    while (true) {
+      let bestA = -1;
+      let bestB = -1;
+      let bestDist = Infinity;
+
+      for (let i = 0; i < clusters.length; i++) {
+        for (let j = i + 1; j < clusters.length; j++) {
+          const cA = clusters[i];
+          const cB = clusters[j];
+
+          const meanDiff = Math.abs(cA.mean - cB.mean);
+          if (meanDiff > DIST_TOL_KM) continue;
+
+          let sharesFile = false;
+          for (const f of cA.files) {
+            if (cB.files.has(f)) {
+              sharesFile = true;
+              break;
+            }
+          }
+          if (sharesFile) continue;
+
+          const newMin = Math.min(cA.min, cB.min);
+          const newMax = Math.max(cA.max, cB.max);
+          if (newMax - newMin > 2 * DIST_TOL_KM) continue;
+
+          if (meanDiff < bestDist) {
+            bestDist = meanDiff;
+            bestA = i;
+            bestB = j;
+          }
+        }
+      }
+
+      if (bestA === -1) break;
+
+      const cA = clusters[bestA];
+      const cB = clusters[bestB];
+      cB.files.forEach(f => cA.files.add(f));
+      cA.events.push(...cB.events);
+      cA.sum += cB.sum;
+      cA.min = Math.min(cA.min, cB.min);
+      cA.max = Math.max(cA.max, cB.max);
+
+      clusters.splice(bestB, 1);
+    }
+
+    clusters.sort((a, b) => a.mean - b.mean);
+    return clusters.map(c => c.mean);
+  }
+
+  function distanceColumns() {
+    return clusterEvents();
+  }
+ /**
+   * Monotonically and uniquely match columns to a reading's events.
+   * Guaranteed:
+   * 1. An event from the reading is NEVER assigned to more than one column.
+   * 2. Physical monotonicity is preserved (event distances increase along columns).
+   * 3. An event is matched only if |event.distance - col| <= tol.
+   * 4. Total distance error is minimized.
+   * Returns an array of original event indices of length cols.length (-1 for unmatched).
+   */
+  function matchColumnsToEvents(cols, events, tol = DIST_TOL_KM) {
+    if (!cols || !cols.length || !events || !events.length) {
+      return new Array(cols ? cols.length : 0).fill(-1);
+    }
+
+    const evList = events
+      .map((ev, originalIdx) => ({ ev, originalIdx, dist: ev.distance }))
+      .filter(item => Number.isFinite(item.dist) && item.dist > 0.001);
+
+    const M = cols.length;
+    const N = evList.length;
+
+    const dp = Array.from({ length: M + 1 }, () => new Float64Array(N + 1).fill(-Infinity));
+    const parent = Array.from({ length: M + 1 }, () => new Int32Array(N + 1).fill(0));
+
+    for (let e = 0; e <= N; e++) dp[0][e] = 0;
+
+    for (let c = 1; c <= M; c++) {
+      const colDist = cols[c - 1];
+      for (let e = 0; e <= N; e++) {
+        let best = dp[c - 1][e];
+        let act = 0; // skip col
+
+        if (e > 0 && dp[c][e - 1] > best) {
+          best = dp[c][e - 1];
+          act = 1; // skip event
+        }
+
+        if (e > 0) {
+          const evDist = evList[e - 1].dist;
+          const diff = Math.abs(colDist - evDist);
+          if (diff <= tol) {
+            const score = dp[c - 1][e - 1] + (1000 - diff);
+            if (score > best) {
+              best = score;
+              act = 2; // match
+            }
+          }
+        }
+
+        dp[c][e] = best;
+        parent[c][e] = act;
+      }
+    }
+
+    const result = new Array(M).fill(-1);
+    let c = M, e = N;
+    while (c > 0 && e >= 0) {
+      const act = parent[c][e];
+      if (act === 2) {
+        result[c - 1] = evList[e - 1].originalIdx;
+        c--;
+        e--;
+      } else if (act === 1) {
+        e--;
+      } else {
+        c--;
+      }
+    }
+
+    return result;
+  }
+
+  /** Nearest event of `evs` matching distance `d` within `tol` (-1 if none). */
+  function matchSingleEventIndex(evs, d, tol = DIST_TOL_KM) {
+    if (!evs || !evs.length) return -1;
+    let bestIdx = -1;
+    let bestDiff = tol;
+    evs.forEach((ev, idx) => {
+      if (!Number.isFinite(ev.distance) || ev.distance <= 0.001) return;
+      const diff = Math.abs(ev.distance - d);
+      if (diff <= bestDiff) {
+        bestDiff = diff;
+        bestIdx = idx;
+      }
+    });
+    return bestIdx;
+  }
+
+  /** Total accumulated loss of a reading: the cumulative value of its
+   *  last event (e.g. 2.trc -> 7.882 dB at the Fin de Fibra). */
+  function totalLoss(t) {
+    const evs = t.events || [];
+    const last = evs[evs.length - 1];
+    if (last && last.cumLoss != null && Number.isFinite(last.cumLoss)) return last.cumLoss;
+    const sum = evs.reduce((s, e) => s + (e.loss != null && Number.isFinite(e.loss) ? e.loss : 0), 0);
+    return Number.isFinite(sum) ? +sum.toFixed(3) : null;
+  }
+
+  function renderCompiledTable() {
+    if (!otdrEventsTableBody) return;
+    otdrEventsTableBody.innerHTML = '';
+
+    const headRow = document.getElementById('otdrEventsHeadRow');
+    const cols = distanceColumns();
+    if (headRow) {
+      headRow.innerHTML = '<th>Hilo / Archivo</th>' +
+        cols.map(d => `<th class="otdr-dist-th">${d.toFixed(3)} km</th>`).join('') +
+        '<th class="otdr-total-th">Pérdida total (dB)</th>';
+    }
+
+    if (!entries.length) {
+      otdrEventsTableBody.innerHTML =
+        `<tr><td style="text-align:center; padding:24px; color:#94a3b8;">Sube archivos .trc / .sor / .msor para compilar sus eventos aquí.</td></tr>`;
+      return;
+    }
+
+    entries.forEach((entry, idx) => {
+      const tr = document.createElement('tr');
+
+      if (!entry.ok) {
+        tr.className = 'otdr-row-error';
+        tr.innerHTML = `
+          <td class="otdr-hilo-cell">${entry.name}</td>
+          <td colspan="${Math.max(cols.length + 1, 1)}">❌ ${entry.error}</td>
+        `;
+        tr.addEventListener('click', () => showTrace(idx));
+        otdrEventsTableBody.appendChild(tr);
+        return;
+      }
+
+      const t = entry.trace;
+      tr.dataset.otdrFile = String(idx);
+
+      const cells = [`<td class="otdr-hilo-cell">${t.hiloName}<div class="otdr-sub">${entry.name}</div></td>`];
+
+      if (!t.events.length) {
+        cells.push(`<td colspan="${Math.max(cols.length + 1, 1)}" style="color:#94a3b8;">Sin eventos detectados</td>`);
+      } else {
+        const matches = matchColumnsToEvents(cols, t.events);
+        cols.forEach((d, colIdx) => {
+          const j = matches[colIdx];
+          if (j < 0) {
+            cells.push('<td class="otdr-cell-empty">—</td>');
+            return;
+          }
+          const ev = t.events[j];
+          const isLast = j === t.events.length - 1;
+          const hasLoss = ev.loss != null && Number.isFinite(ev.loss);
+          const gain = hasLoss && ev.loss < 0;
+          const text = isLast ? 'LLEGA' : (hasLoss ? ev.loss.toFixed(3) : '—');
+          cells.push(`<td class="otdr-cell-loss${gain && !isLast ? ' otdr-cell-gain' : ''}${isLast ? ' otdr-cell-llega' : ''}"` +
+            ` data-otdr-file="${idx}" data-otdr-event="${j}"` +
+            ` title="Evento ${ev.num} · ${ev.typeName}">${text}</td>`);
+        });
+        const total = totalLoss(t);
+        cells.push(`<td class="otdr-cell-total">${total != null ? total.toFixed(3) : '—'}</td>`);
+      }
+
+      tr.innerHTML = cells.join('');
+      tr.addEventListener('click', () => showTrace(idx));
+      // Clicking a loss cell also selects that event in the viewer
+      tr.querySelectorAll('td[data-otdr-event]').forEach(td => {
+        td.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (current !== idx) showTrace(idx);
+          selectEvent(Number(td.dataset.otdrEvent), false);
+        });
+      });
+      otdrEventsTableBody.appendChild(tr);
+    });
+
+    highlightTableRows();
+  }
+function highlightTableRows() {
+    [otdrEventsTableBody, otdrFilteredTableBody].forEach(body => {
+      if (!body) return;
+      body.querySelectorAll('tr[data-otdr-file]').forEach(tr => {
+        tr.classList.toggle('otdr-row-active', tr.dataset.otdrFile === String(current));
+      });
+      body.querySelectorAll('td[data-otdr-event]').forEach(td => {
+        const isActive = td.dataset.otdrFile === String(current) && currentEvent >= 0 &&
+          td.dataset.otdrEvent === String(currentEvent);
+        td.classList.toggle('otdr-cell-active', isActive);
+      });
+    });
+    highlightSummaryRows();
+  }
+
+  /* ==================================================================
+     Export compiled table to .xlsx
+     ================================================================== */
+  function exportXlsx() {
+    if (!entries.length) {
+      alert('No hay lecturas OTDR para exportar.');
+      return;
+    }
+
+    // Ask for the file name before downloading (cancel aborts the export)
+    const defaultName = 'BackBone_Interurbano_Compilado_OTDR';
+    const input = prompt('Por favor ingresa nombre del Archivo (la extensión .xlsx se agrega automáticamente):', defaultName);
+    if (input === null) return;
+    const fileName = (input.trim().replace(/\.xlsx$/i, '') || defaultName)
+      .replace(/[\\/:*?"<>|]/g, '_');
+
+    const cols = distanceColumns();
+    const rows = [['Hilo / Archivo', ...cols.map(d => `${d.toFixed(3)} km`), 'Pérdida total (dB)']];
+
+    entries.forEach((entry) => {
+      if (!entry.ok) {
+        rows.push([entry.name, `ERROR: ${entry.error}`]);
+        return;
+      }
+      const t = entry.trace;
+      if (!t.events.length) {
+        rows.push([t.hiloName, 'Sin eventos detectados']);
+        return;
+      }
+      const row = [t.hiloName];
+      const matches = matchColumnsToEvents(cols, t.events);
+      cols.forEach((d, colIdx) => {
+        const j = matches[colIdx];
+        const ev = j >= 0 ? t.events[j] : null;
+        if (j >= 0 && j === t.events.length - 1) {
+          row.push('LLEGA');
+        } else {
+          row.push(ev && ev.loss != null && Number.isFinite(ev.loss)
+            ? Number(ev.loss.toFixed(4)) : '');
+        }
+      });
+      const total = totalLoss(t);
+      row.push(total != null ? Number(total.toFixed(4)) : '');
+      rows.push(row);
+    });
+
+    const ws = XLSX.utils.aoa_to_sheet(rows);
+    ws['!cols'] = [{ wch: 40 }].concat(cols.map(() => ({ wch: 11 })), [{ wch: 18 }]);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'BackBone_OTDR');
+    XLSX.writeFile(wb, `${fileName}.xlsx`);
+  }
+
+  /* ==================================================================
+     Report: events with loss greater than the threshold (0.22 dB).
+     Same matrix layout as the compiled table, but only events whose
+     declared loss exceeds the threshold are registered.
+     ================================================================== */
+  const LOSS_THRESHOLD_DB = 0.22;
+
+  /** True when the event's declared loss exceeds the threshold. */
+  function isOverThreshold(ev) {
+    return ev.loss != null && Number.isFinite(ev.loss) && ev.loss > LOSS_THRESHOLD_DB;
+  }
+
+  /** Union of distances of over-threshold events across all readings plus
+   *  each hilo's end event (it always closes its row with LLEGA), clustered
+   *  with the same tolerance as the compiled table. */
+  function filteredDistanceColumns() {
+    return clusterEvents((ev, evIdx, evs) => {
+      const isEnd = evIdx === evs.length - 1;
+      return isEnd || isOverThreshold(ev);
+    });
+  }
+
+  function renderFilteredTable() {
+    if (!otdrFilteredTableBody) return;
+    otdrFilteredTableBody.innerHTML = '';
+
+    const headRow = document.getElementById('otdrFilteredHeadRow');
+    const cols = filteredDistanceColumns();
+    if (headRow) {
+      headRow.innerHTML = '<th>Hilo / Archivo</th>' +
+        cols.map(d => `<th class="otdr-dist-th">${d.toFixed(3)} km</th>`).join('') +
+        '<th class="otdr-total-th">Pérdida total (dB)</th>';
+    }
+
+    if (!entries.length) {
+      otdrFilteredTableBody.innerHTML =
+        `<tr><td style="text-align:center; padding:24px; color:#94a3b8;">Sube archivos .trc / .sor / .msor para registrar aquí los eventos con pérdida mayor a ${LOSS_THRESHOLD_DB} dB.</td></tr>`;
+      return;
+    }
+
+    entries.forEach((entry, idx) => {
+      const tr = document.createElement('tr');
+
+      if (!entry.ok) {
+        tr.className = 'otdr-row-error';
+        tr.innerHTML = `
+          <td class="otdr-hilo-cell">${entry.name}</td>
+          <td colspan="${Math.max(cols.length + 1, 1)}">❌ ${entry.error}</td>
+        `;
+        tr.addEventListener('click', () => showTrace(idx));
+        otdrFilteredTableBody.appendChild(tr);
+        return;
+      }
+
+      const t = entry.trace;
+      tr.dataset.otdrFile = String(idx);
+
+      const cells = [`<td class="otdr-hilo-cell">${t.hiloName}<div class="otdr-sub">${entry.name}</div></td>`];
+
+      if (!t.events.length) {
+        cells.push(`<td colspan="${Math.max(cols.length + 1, 1)}" style="color:#94a3b8;">Sin eventos detectados</td>`);
+      } else {
+        const matches = matchColumnsToEvents(cols, t.events);
+        cols.forEach((d, colIdx) => {
+          const j = matches[colIdx];
+          if (j < 0) {
+            cells.push('<td class="otdr-cell-empty">—</td>');
+            return;
+          }
+          const ev = t.events[j];
+          const isLast = j === t.events.length - 1;
+          if (isLast) {
+            cells.push(`<td class="otdr-cell-loss otdr-cell-llega"` +
+              ` data-otdr-file="${idx}" data-otdr-event="${j}"` +
+              ` title="Evento ${ev.num} · ${ev.typeName}">LLEGA</td>`);
+          } else if (isOverThreshold(ev)) {
+            cells.push(`<td class="otdr-cell-loss"` +
+              ` data-otdr-file="${idx}" data-otdr-event="${j}"` +
+              ` title="Evento ${ev.num} · ${ev.typeName}">${ev.loss.toFixed(3)}</td>`);
+          } else {
+            cells.push('<td class="otdr-cell-empty">—</td>');
+          }
+        });
+        const total = totalLoss(t);
+        cells.push(`<td class="otdr-cell-total">${total != null ? total.toFixed(3) : '—'}</td>`);
+      }
+
+      tr.innerHTML = cells.join('');
+      tr.addEventListener('click', () => showTrace(idx));
+      // Clicking a loss cell also selects that event in the viewer
+      tr.querySelectorAll('td[data-otdr-event]').forEach(td => {
+        td.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (current !== idx) showTrace(idx);
+          selectEvent(Number(td.dataset.otdrEvent), false);
+        });
+      });
+      otdrFilteredTableBody.appendChild(tr);
+    });
+
+    highlightTableRows();
+  }
+
+  function exportFilteredXlsx() {
+    if (!entries.length) {
+      alert('No hay lecturas OTDR para exportar.');
+      return;
+    }
+
+    const defaultName = 'BackBone_Interurbano_Eventos_Mayores_022dB';
+    const input = prompt('Por favor ingresa nombre del Archivo (la extensión .xlsx se agrega automáticamente):', defaultName);
+    if (input === null) return;
+    const fileName = (input.trim().replace(/\.xlsx$/i, '') || defaultName)
+      .replace(/[\\/:*?"<>|]/g, '_');
+
+    const cols = filteredDistanceColumns();
+    const rows = [['Hilo / Archivo', ...cols.map(d => `${d.toFixed(3)} km`), 'Pérdida total (dB)']];
+
+    entries.forEach((entry) => {
+      if (!entry.ok) {
+        rows.push([entry.name, `ERROR: ${entry.error}`]);
+        return;
+      }
+      const t = entry.trace;
+      if (!t.events.length) {
+        rows.push([t.hiloName, 'Sin eventos detectados']);
+        return;
+      }
+      const row = [t.hiloName];
+      const matches = matchColumnsToEvents(cols, t.events);
+      cols.forEach((d, colIdx) => {
+        const j = matches[colIdx];
+        if (j < 0) {
+          row.push('');
+          return;
+        }
+        const ev = t.events[j];
+        const isLast = j === t.events.length - 1;
+        if (isLast) {
+          row.push('LLEGA');
+        } else if (isOverThreshold(ev)) {
+          row.push(Number(ev.loss.toFixed(4)));
+        } else {
+          row.push('');
+        }
+      });
+      const total = totalLoss(t);
+      row.push(total != null ? Number(total.toFixed(4)) : '');
+      rows.push(row);
+    });
+
+    const ws = XLSX.utils.aoa_to_sheet(rows);
+    ws['!cols'] = [{ wch: 40 }].concat(cols.map(() => ({ wch: 11 })), [{ wch: 18 }]);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Eventos_mayores_022dB');
+    XLSX.writeFile(wb, `${fileName}.xlsx`);
+  }
+
+  /* ==================================================================
+     Summary of the compiled table: one row per event distance with the
+     number of events detected there and their detail — shown on the
+     page and exported to .xlsx
+     ================================================================== */
+  /** Summary based on the >0.22 dB report: one row per distance registered
+   *  there (over-threshold events and each hilo's end event / LLEGA) with
+   *  how many hilos register an event at that distance and their names. */
+  function summaryRows() {
+    const cols = filteredDistanceColumns();
+    const entryMatches = entries.map(entry => {
+      if (!entry.ok || !entry.trace.events.length) return null;
+      return matchColumnsToEvents(cols, entry.trace.events);
+    });
+ return cols.map((d, colIdx) => {
+      const hits = [];
+      entries.forEach((entry, entryIdx) => {
+        const matches = entryMatches[entryIdx];
+        if (!matches) return;
+        const j = matches[colIdx];
+        if (j < 0) return;
+        const t = entry.trace;
+        const ev = t.events[j];
+        const isLast = j === t.events.length - 1;
+        if (isLast || isOverThreshold(ev)) {
+          hits.push({ hilo: t.hiloName });
+        }
+      });
+      const detail = hits.map(h => h.hilo).join(' · ');
+      return { dist: d, count: hits.length, detail };
+    }).sort((a, b) => b.count - a.count || a.dist - b.dist); // most events first
+  }
+
+  function renderSummaryTable() {
+    if (!otdrSummaryTableBody) return;
+    otdrSummaryTableBody.innerHTML = '';
+
+    if (!entries.length) {
+      otdrSummaryTableBody.innerHTML =
+        `<tr><td colspan="3" style="text-align:center; padding:24px; color:#94a3b8;">Sube archivos .trc / .sor / .msor para ver el resumen aquí.</td></tr>`;
+      return;
+    }
+
+    summaryRows().forEach(r => {
+      const tr = document.createElement('tr');
+      tr.dataset.otdrDist = String(r.dist);
+      tr.innerHTML = `
+        <td><b style="color:#FDE047;">${r.dist.toFixed(3)}</b> km</td>
+        <td>${r.count}</td>
+        <td class="otdr-summary-detail">${r.detail || '—'}</td>
+      `;
+      // Clicking a distance selects that event in the current reading
+      tr.addEventListener('click', () => {
+        const j = matchSingleEventIndex(currentEvents(), r.dist);
+        if (j >= 0) selectEvent(j, false);
+      });
+      otdrSummaryTableBody.appendChild(tr);
+    });
+
+    highlightSummaryRows();
+  }
+
+  function highlightSummaryRows() {
+    if (!otdrSummaryTableBody) return;
+    const evs = currentEvents();
+    if (currentEvent < 0 || !evs[currentEvent]) {
+      otdrSummaryTableBody.querySelectorAll('tr[data-otdr-dist]').forEach(tr => {
+        tr.classList.remove('otdr-row-active');
+      });
+      return;
+    }
+    const curDist = evs[currentEvent].distance;
+    const rows = Array.from(otdrSummaryTableBody.querySelectorAll('tr[data-otdr-dist]'));
+    let bestTr = null;
+    let bestDiff = DIST_TOL_KM;
+    rows.forEach(tr => {
+      const d = Number(tr.dataset.otdrDist);
+      const diff = Math.abs(curDist - d);
+      if (diff <= bestDiff) {
+        bestDiff = diff;
+        bestTr = tr;
+      }
+    });
+    rows.forEach(tr => {
+      tr.classList.toggle('otdr-row-active', tr === bestTr);
+    });
+  }
+
+  function exportSummaryXlsx() {
+    if (!entries.length) {
+      alert('No hay lecturas OTDR para exportar.');
+      return;
+    }
+
+    const defaultName = 'BackBone_Interurbano_Resumen_OTDR';
+    const input = prompt('Por favor ingresa nombre del Archivo (la extensión .xlsx se agrega automáticamente):', defaultName);
+    if (input === null) return;
+    const fileName = (input.trim().replace(/\.xlsx$/i, '') || defaultName)
+      .replace(/[\\/:*?"<>|]/g, '_');
+
+    const rows = [['Distancia (km)', 'Cantidad de Eventos', 'Detalle de Eventos']];
+
+    summaryRows().forEach(r => {
+      rows.push([Number(r.dist.toFixed(3)), r.count, r.detail]);
+    });
+
+    const ws = XLSX.utils.aoa_to_sheet(rows);
+    ws['!cols'] = [{ wch: 14 }, { wch: 18 }, { wch: 60 }];
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Resumen_OTDR');
+    XLSX.writeFile(wb, `${fileName}.xlsx`);
+  }
+
+  /* ==================================================================
+     Event wiring
+     ================================================================== */
+  if (dropZone) {
+    dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('drag-over');
+      if (e.dataTransfer.files && e.dataTransfer.files.length) addFiles(e.dataTransfer.files);
+    });
+    dropZone.addEventListener('click', () => fileInput.click());
+  }
+
+  if (fileInput) {
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files && e.target.files.length) addFiles(e.target.files);
+      fileInput.value = ''; // allow re-uploading the same file
+    });
+  }
+
+  if (btnOtdrPrev) btnOtdrPrev.addEventListener('click', () => showTrace(Math.max(0, current - 1)));
+  if (btnOtdrNext) btnOtdrNext.addEventListener('click', () => showTrace(Math.min(entries.length - 1, current + 1)));
+  if (btnOtdrEventPrev) btnOtdrEventPrev.addEventListener('click', () => {
+    if (!currentEvents().length) return;
+    selectEvent(currentEvent <= 0 ? 0 : currentEvent - 1);
+  });
+  if (btnOtdrEventNext) btnOtdrEventNext.addEventListener('click', () => {
+    const evs = currentEvents();
+    if (!evs.length) return;
+    selectEvent(currentEvent < 0 ? 0 : Math.min(evs.length - 1, currentEvent + 1));
+  });
+  if (otdrFileSelect) otdrFileSelect.addEventListener('change', () => showTrace(Number(otdrFileSelect.value)));
+  if (btnExportOtdr) btnExportOtdr.addEventListener('click', exportXlsx);
+  if (btnExportOtdrSummary) btnExportOtdrSummary.addEventListener('click', exportSummaryXlsx);
+  if (btnExportOtdrFiltered) btnExportOtdrFiltered.addEventListener('click', exportFilteredXlsx);
+
+  // Botón Demo eliminado de la UI — ya no se registra el event listener.
+
+  if (btnClearOtdr) {
+    btnClearOtdr.addEventListener('click', (e) => {
+      e.stopPropagation();
+      entries = [];
+      current = -1;
+      rebuildAll();
+    });
+  }
+
+  // Resize the trace chart when the panel becomes visible
+  if (btnNavBackbone) {
+    btnNavBackbone.addEventListener('click', () => {
+      setTimeout(() => { if (chart) chart.resize(); }, 250);
+    });
+  }
+
+  // Initial state
+  refreshStatus();
+  renderCompiledTable();
+  renderFilteredTable();
+  renderSummaryTable();
+  updateEventCounter();
+  renderEventInfo();
+});
+
+  </script>
+  <script>
+/* ============================================================================
+   OTDR Analyzer — Standalone App Initialization
+   Sincroniza el estado del parser con el pill del header.
+   NO registra el plugin DataLabels (causaba "múltiples trazas" visuales).
+   ============================================================================ */
+
+document.addEventListener('DOMContentLoaded', () => {
+  // ── Contador de visitas (localStorage) ──
+  // Cuenta cuántas veces se ha abierto la página en este navegador.
+  // No es un contador global de servidor, pero funciona 100% offline.
+  const VISIT_KEY = 'otdr_analyzer_visits';
+  let visits = parseInt(localStorage.getItem(VISIT_KEY) || '0', 10) + 1;
+  localStorage.setItem(VISIT_KEY, String(visits));
+  const countEl = document.getElementById('visitorCount');
+  if (countEl) {
+    // Animar el conteo de 0 hasta el número real
+    let displayVal = 0;
+    const target = visits;
+    const step = Math.max(1, Math.ceil(target / 40));
+    const interval = setInterval(() => {
+      displayVal += step;
+      if (displayVal >= target) {
+        displayVal = target;
+        clearInterval(interval);
+      }
+      countEl.textContent = displayVal.toLocaleString('es');
+    }, 30);
+  }
+
+  // Atajos de teclado
+  document.addEventListener('keydown', (e) => {
+    const tag = (e.target.tagName || '').toLowerCase();
+    if (tag === 'input' || tag === 'select' || tag === 'textarea') return;
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (e.key === 'ArrowLeft') document.getElementById('btnOtdrEventPrev')?.click();
+    else if (e.key === 'ArrowRight') document.getElementById('btnOtdrEventNext')?.click();
+    else if (e.key === 'PageDown' || e.key === ']') document.getElementById('btnOtdrNext')?.click();
+    else if (e.key === 'PageUp' || e.key === '[') document.getElementById('btnOtdrPrev')?.click();
+  });
+
+  // Prevenir que el navegador abra archivos soltados fuera del drop zone
+  ['dragover', 'drop'].forEach(ev => {
+    window.addEventListener(ev, (e) => {
+      if (!e.target.closest('#otdrDropZone')) e.preventDefault();
+    });
+  });
+
+  console.log('%c📡 OTDR Analyzer iniciado', 'color:#38BDF8;font-weight:bold;font-size:14px');
+});
+
+  </script>
+</body>
+</html>

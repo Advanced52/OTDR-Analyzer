@@ -1,0 +1,15 @@
+# Stack de producción para Portainer
+# Repository: https://github.com/Advanced52/OTDR-Analyzer.git
+# Compose path: docker-compose.prod.yml
+# Reference: refs/heads/main
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: otdr-analyzer:latest
+    container_name: otdr-analyzer
+    restart: unless-stopped
+    ports:
+      - '${OTDR_HTTP_PORT:-8095}:80'

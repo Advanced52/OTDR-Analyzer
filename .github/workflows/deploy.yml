@@ -1,0 +1,59 @@
+# Auto-deploy: push → GitHub Actions → webhook Portainer
+#
+# Secrets (GitHub → Settings → Secrets → Actions):
+#   PORTAINER_WEBHOOK_URL   (obligatorio) URL del webhook del stack
+#
+# Si Portainer está detrás de Cloudflare Access, además:
+#   CF_ACCESS_CLIENT_ID
+#   CF_ACCESS_CLIENT_SECRET
+
+name: Deploy OTDR Analyzer
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  notify-portainer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Portainer webhook
+        env:
+          WEBHOOK_URL: ${{ secrets.PORTAINER_WEBHOOK_URL }}
+          CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
+          CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
+        run: |
+          if [ -z "$WEBHOOK_URL" ]; then
+            echo "::error::Falta PORTAINER_WEBHOOK_URL"
+            exit 1
+          fi
+
+          echo "Avisando a Portainer..."
+          CURL_ARGS=(-sS -o /tmp/portainer_response.txt -w "%{http_code}" -X POST)
+
+          if [ -n "$CF_ACCESS_CLIENT_ID" ] && [ -n "$CF_ACCESS_CLIENT_SECRET" ]; then
+            echo "Usando Cloudflare Access service token"
+            CURL_ARGS+=(
+              -H "CF-Access-Client-Id: $CF_ACCESS_CLIENT_ID"
+              -H "CF-Access-Client-Secret: $CF_ACCESS_CLIENT_SECRET"
+            )
+          fi
+
+          HTTP_CODE=$(curl "${CURL_ARGS[@]}" "$WEBHOOK_URL")
+          echo "HTTP $HTTP_CODE"
+          echo "Respuesta:"
+          head -c 500 /tmp/portainer_response.txt || true
+          echo
+
+          if [ "$HTTP_CODE" = "401" ] || [ "$HTTP_CODE" = "403" ]; then
+            echo "::error::Unauthorized — Cloudflare o Portainer bloqueó la petición."
+            exit 1
+          fi
+
+          if [ "$HTTP_CODE" -lt 200 ] || [ "$HTTP_CODE" -ge 300 ]; then
+            echo "::error::Portainer respondió $HTTP_CODE"
+            exit 1
+          fi
+
+          echo "OK — Portainer actualizará el stack."
